@@ -1,0 +1,61 @@
+{% extends 'main/layout.html' %}
+
+
+{% block title %} Проекты {% endblock %}
+
+
+{% block content %}
+    <div class="container p-3" >
+        <h1 class="h1 pb-3"> Projects list</h1>
+        <div class="card">
+            <div class="card-body">
+              <div class="container">                
+                <table class="table table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Finished</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">$</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% if projects %}
+                      {% for project in projects %}
+                        <tr>
+                        <th scope="row">{{project.id}}</th>
+                        <td>{{project.project_name}}</td>
+                        <td>{{project.project_created}}</td>
+                        <td>{{project.project_finished}}</td>
+                        <td>{{project.project_status}}</td>
+                        <td>{{project.project_client}}</td>
+                        <td>{{project.project_product}}</td>
+                        <td>{{project.project_sum}}</td>
+                      </tr>
+                      {% endfor %}
+                    {% else %}
+                        <tr>
+                            <th scope="row"></th>
+                            <td>No projects yet</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                      </tr>
+                    {% endif %}
+                    </tbody>
+                  </table>
+            </div>
+            </div>
+          </div>    
+      </div>
+      
+      
+      
+{% endblock %}
+
