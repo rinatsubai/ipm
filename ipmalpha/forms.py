@@ -13,4 +13,5 @@ class AddClientForm(forms.ModelForm):
         }
         
 
-    
+class GetProjectsForm(forms.Form):
+    name = forms.CharField()
