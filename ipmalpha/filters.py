@@ -6,8 +6,8 @@ class ProjectFilter(django_filters.FilterSet):
     class Meta:
         model = Project
         fields = {
-            'project_name': ['icontains'], 
-            'project_status': ['exact'], 
-            'project_client': ['exact'], 
-            'project_product': ['icontains'], 
+                    'project_name': ['icontains'], 
+                    'project_client': ['exact'],
+                    'project_status': ['exact'], 
+                    'project_product': ['icontains'], 
                   }

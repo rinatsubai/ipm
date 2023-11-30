@@ -23,10 +23,12 @@ from ipmalpha import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main_page, name="main_page"),
+    # path('', main_page, name="main_page"),
     path('finance/', finance_page, name="finance_page"),
     path('clients/', clients_page, name="clients_page"),
     path('filter/', clients_filter, name="clients_filter"),
-    path('second/', views.ProjectListView.as_view(), name="second"),
     path('client/<slug:client_slug>', clients_filter, name="clients_filter"),
+    path('', views.ProjectListView.as_view(), name="second"),
+    path('api/', views.ProjectListAPIView.as_view()),
+    
 ]

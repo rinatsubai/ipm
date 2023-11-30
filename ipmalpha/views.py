@@ -1,5 +1,3 @@
-from typing import Any
-from django.db.models.query import QuerySet
 from django.shortcuts import render
 from ipmclients.forms import AddClientForm
 from ipmalpha.models import *
@@ -7,6 +5,9 @@ from ipmalpha.forms import *
 from ipmclients.models import *
 from ipmalpha.filters import ProjectFilter
 from django.views.generic.list import ListView
+from ipmalpha.serializers import ProjectSerializer
+from rest_framework.generics import ListAPIView
+from django_filters.rest_framework import DjangoFilterBackend
 
 def second_page(request):
     project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
@@ -17,6 +18,11 @@ def second_page(request):
     return render(request, 'second.html', context)
 
 
+class ProjectListAPIView(ListAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    filter_backends = (DjangoFilterBackend, )
+    filterset_class = ProjectFilter
 
 class ProjectListView(ListView):
     queryset = Project.objects.all()
@@ -33,6 +39,11 @@ class ProjectListView(ListView):
         context['form'] = self.filterset.form
         return context
         
+
+
+
+    
+
 
 def main_page(request):
     if request.method == 'POST':
