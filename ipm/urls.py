@@ -19,6 +19,7 @@ from django.urls import path
 from ipmalpha.views import main_page, second_page
 from ipmclients.views import clients_page, clients_filter
 from ipmfinance.views import finance_page
+from ipmalpha import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +27,6 @@ urlpatterns = [
     path('finance/', finance_page, name="finance_page"),
     path('clients/', clients_page, name="clients_page"),
     path('filter/', clients_filter, name="clients_filter"),
-    path('second/', second_page, name="second"),
+    path('second/', views.ProjectListView.as_view(), name="second"),
     path('client/<slug:client_slug>', clients_filter, name="clients_filter"),
 ]

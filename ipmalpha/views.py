@@ -1,9 +1,12 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from ipmclients.forms import AddClientForm
 from ipmalpha.models import *
 from ipmalpha.forms import *
 from ipmclients.models import *
 from ipmalpha.filters import ProjectFilter
+from django.views.generic.list import ListView
 
 def second_page(request):
     project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
@@ -12,6 +15,24 @@ def second_page(request):
         'projects': project_filter.qs
     }
     return render(request, 'second.html', context)
+
+
+
+class ProjectListView(ListView):
+    queryset = Project.objects.all()
+    template_name = 'second.html'
+    context_object_name = 'projects'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = ProjectFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.filterset.form
+        return context
+        
 
 def main_page(request):
     if request.method == 'POST':
