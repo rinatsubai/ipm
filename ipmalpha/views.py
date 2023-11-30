@@ -6,15 +6,10 @@ from ipmclients.models import *
 from ipmalpha.filters import ProjectFilter
 
 def second_page(request):
-    name = request.GET.get('name')
-    projects_list = Project.objects.all()
-    if name:
-        projects_list = projects_list.filter(project_name__icontains=name)
-    # project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
+    project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
     context={
-        'form': GetProjectsForm(), 
-        'projects': projects_list
-        
+        'form': project_filter.form,
+        'projects': project_filter.qs
     }
     return render(request, 'second.html', context)
 
