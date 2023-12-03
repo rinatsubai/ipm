@@ -26,7 +26,7 @@
                     <tbody>
                     {% if projects %}
                       {% for project in projects %}
-                        <tr>
+                        <tr style="background-color: #{{}}">
                         <th scope="row">{{project.id}}</th>
                         <td>{{project.project_name}}</td>
                         <td>{{project.project_created}}</td>

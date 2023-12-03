@@ -18,6 +18,7 @@ def second_page(request):
     return render(request, 'second.html', context)
 
 
+
 class ProjectListAPIView(ListAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
