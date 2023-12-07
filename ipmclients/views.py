@@ -5,6 +5,8 @@ from ipmalpha.models import *
 from ipmclients.forms import *
 from ipmclients.models import *
 from django.views.generic import ListView
+from rest_framework.viewsets import ModelViewSet
+from ipmclients.serializers import *
 
 def ShowClients(request, client_slug):
     post = get_object_or_404(Client, slug=client_slug)
@@ -35,17 +37,10 @@ def clients_filter(request):
     return render(request, 'clients_filter.html', {'clients': Client.objects.all(), 'projects': Project.objects.all(), 'clientform': clientform, 'all_projects': all_projects,})
 
 
-# class ClientFilter(ListView):
-#     model = Client
-#     template_name = 'clients_filter.html'
-#     context_object_name = 'clients'
-    
-    # def get_queryset(self):
-    #      return Client.objects.filter(client_project__id=self.kwargs['client_project_id'], client_active=True)
 
 def clients_page(request):
     all_projects = Project.objects.all()
-
+    
     if request.method == 'POST':
         clientform = AddClientForm(request.POST)
         if clientform.is_valid():
@@ -58,8 +53,16 @@ def clients_page(request):
                     
                 except:
                     clientform.add_error(None, "Error")
-    
+        
     else:
         clientform = AddClientForm()
-    return render(request, 'clients_page.html', {'clients': Client.objects.all(), 'projects': Project.objects.all(), 'clientform': clientform, 'all_projects': all_projects,})
+    return render(request, 'clients_page.html', {'clients': Client.objects.all(), 'clientform': clientform, 'all_projects': all_projects})
 
+
+def clients_app(request):
+    return render(request, 'clients.filter.html',)
+
+class ClientSerialAPI(ModelViewSet):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    
