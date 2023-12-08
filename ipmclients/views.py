@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from ipmalpha.models import *
 from ipmclients.forms import *
 from ipmclients.models import *
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from rest_framework.viewsets import ModelViewSet
 from ipmclients.serializers import *
 
@@ -18,7 +18,6 @@ def ShowClients(request, client_slug):
 
 def clients_filter(request):
     all_projects = Project.objects.all()
-
     if request.method == 'POST':
         clientform = AddClientForm(request.POST)
         if clientform.is_valid():
@@ -66,3 +65,6 @@ class ClientSerialAPI(ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     
+class ClientDetailView(DetailView):
+    model = Client
+    template_name = "client_detail.html"

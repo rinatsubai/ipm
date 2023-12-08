@@ -1,0 +1,76 @@
+{% extends 'main/layout.html' %}
+
+{% block title %} Проект {{object.project_name}}{% endblock %}
+{% block content %}
+<div class="col-12">
+            <table class="table" style="border-width: 0px">
+                <tr>
+                    <td>
+                        <div class="card p-3">
+                            <span class="text-secondary pt-3" style="font-size: 14px">#134{{ object.id }}</span> 
+                            <h2 class=" pb-3" style=""> Project "{{object.project_name}}" </h2>
+                                <p class="text-secondary pb-3" style=""> {{object.project_created}} - {{object.project_finished}}</p>
+                                <span>Client: <a href="{{ object.project_client.get_absolute_url }}">{{ object.project_client.client_name }}</a></span>
+                            <br/>
+                            <span class="text-secondary pt-3 " style="font-size: 14px">продукт</span>
+                            <h5 class=" pb-3" style=""> Project "{{object.project_product}}" </h5>
+                            <button class="btn btn-{{object.project_status.status_color}}"> {{object.project_status}}</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card p-3">
+                            <span class="text-secondary pt-3 mx-auto" style="font-size: 14px">Стоимость проекта</span>
+                            <h3 class="mx-auto" style=""> {{object.project_sum}} RUB </h3>
+                            
+                            
+                            <table>
+                                <hr/>
+                                <tr>
+                                    <th scope="col" class="text-secondary"> #
+                                    </th>
+                                    <th scope="col" class="text-secondary"> Транзакция
+                                    </th>
+                                    <th scope="col" class="text-secondary"> Тип
+                                    </th>
+                                    <th scope="col" class="text-secondary"> Дата
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td> 1629811
+                                    </td>
+                                    <td> 12 000
+                                    </td>
+                                    <td> Расход
+                                    </td>
+                                    <td> 24/12/1992
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> 2387110
+                                    </td>
+                                    <td> 16 000
+                                    </td>
+                                    <td> Поступление
+                                    </td>
+                                    <td> 24/12/1997
+                                    </td>
+                                </tr>
+                            </table>  
+                            
+                            
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card p-3">
+                            <h4 class=" pb-3" style=""> Other Projects </h4>
+                            {% for object in objects %}
+                            <li> {{object.project_name}}</li>
+                            {% endfor %}
+                            <li> {{object.project_name}}</li>
+                        </div>
+                    </td>
+                </tr>
+            </table>        
+        </div>
+    </div>
+{% endblock %}

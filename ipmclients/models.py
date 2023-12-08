@@ -12,11 +12,11 @@ class Client(models.Model):
     client_roletype = models.CharField(max_length=512, null=True)
     client_agreements = models.CharField(max_length=1024, null=True)
     client_active = models.BooleanField(default=True)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL", null=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     
     def get_absolute_url(self):
-        return reverse("client", kwargs={"client_slug": self.slug})
-    
+        return reverse("client_detail", kwargs={"slug": self.slug})
+        # return reverse("client_detail", args=[str(self.id)])
     
     class Meta:
         ordering = ["id"]

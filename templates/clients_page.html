@@ -41,7 +41,7 @@
                       {% if not client.client_name %}
                         <p class="text-secondary"> - </p>
                       {% else %}
-                      {{client.client_name}}
+                      <a href="{{ client.get_absolute_url }}">{{client.client_name}}</a>
                     {% endif %} </td>
                     <td>
                       {% if not client.client_contact %}
@@ -62,14 +62,14 @@
                       {% if not client.project.all %}
                         <p class='text-secondary'> No projects </p>
                       {% else %}
-                      {% with client.project.all|first as project %}
-                          {{ project.project_name }}
+                      {% with client.project.all.last as project %}
+                          <a href="#">{{ project.project_name }}</a>
                         {% endwith %} 
                       {% endif %}
                     </td>
                     <td>{% if not client.project.all %}
                       <p class='text-secondary'> – </p>
-                    {% else %}{{client.client_agreements}}{% endif %}</td>
+                    {% else %}<a href="#">{{client.client_agreements}}</a>{% endif %}</td>
                     <td>
                       {% if client.client_active == True %}
                       <p class="text-primary"> Активен </p>

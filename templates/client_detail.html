@@ -1,0 +1,87 @@
+{% extends 'main/layout.html' %}
+
+{% block title %} Клиент {{object.client_name}}{% endblock %}
+{% block content %}
+<div class="col-12">
+            <table class="table" style="border-width: 0px">
+                <tr>
+                    <td>
+                        <div class="card p-3">
+                            <span class="text-secondary pt-3" style="font-size: 14px">#134{{ object.id }}</span> 
+                            <h2 class=" pb-3" style=""> Client "{{object.client_name}}" </h2>
+                                {% if client.client_active == true %}
+                                <p class="text-primary" style=""> Active</p>
+                                {% else %}
+                                <p class="text-danger" style=""> Inactive</p>
+                                {% endif %}
+                                <p class="text-secondary" style=""> Contact: {{object.client_contact}}</p>
+                                <p class="text-secondary" style=""> Telegram: {{object.client_telegram}}</p>
+                                <p class="text-secondary" style=""> Phone: {{object.client_phone}}</p>
+                            <br/>
+                            <span class="text-secondary pt-3 " style="font-size: 14px">Роль и тип</span>
+                            <h5 class=" pb-3" style=""> {{object.client_roletype}} </h5>
+                            <a class=
+                            {% if object.client_agreements %}
+                            "btn btn-primary"
+                            {% else %}
+                            "btn btn-secondary"
+                            {% endif %}
+                            href="{{object.client_agreements}}" target="_blank"> Папка с договорами</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card p-3">
+                            <h3 class="mx-auto" style=""> Список проектов </h3>
+                            
+                            
+                            <table>
+                                <hr/>
+                                <tr>
+                                    <th scope="col" class="text-secondary"> #
+                                    </th>
+                                    <th scope="col" class="text-secondary"> Транзакция
+                                    </th>
+                                    <th scope="col" class="text-secondary"> Тип
+                                    </th>
+                                    <th scope="col" class="text-secondary"> Дата
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td> {{ client.project.all.first.id }}
+                                    </td>
+                                    <td> {{ client.project.all.first.project_name }}
+                                    </td>
+                                    <td> {{ client.project.all.first.project_status }}
+                                    </td>
+                                    <td> {{ client.project.all.first.project_created }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> 2387110
+                                    </td>
+                                    <td> {{ client.project.all.last }}
+                                    </td>
+                                    <td> Поступление
+                                    </td>
+                                    <td> 24/12/1997
+                                    </td>
+                                </tr>
+                            </table>  
+                            
+                            
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card p-3">
+                            <h4 class=" pb-3" style=""> Other Clients </h4>
+                            {% for object in objects %}
+                            <li> {{object.client_name}}</li>
+                            {% endfor %}
+                            <li> {{object.client_name}}</li>
+                        </div>
+                    </td>
+                </tr>
+            </table>        
+        </div>
+    </div>
+{% endblock %}

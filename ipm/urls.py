@@ -14,5 +14,7 @@ urlpatterns = [
     # path('client/<slug:client_slug>', clients_filter, name="clients_filter"),
     path('', views.ProjectListView.as_view(), name="main_page"),
     path('api/', views.ProjectListAPIView.as_view()),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('', include("ipmclients.urls")),
+    path('', include("ipmalpha.urls")),
 ]

@@ -4,7 +4,7 @@ from ipmalpha.models import *
 from ipmalpha.forms import *
 from ipmclients.models import *
 from ipmalpha.filters import *
-from django.views.generic.list import ListView
+from django.views.generic import ListView, DetailView
 from ipmalpha.serializers import ProjectSerializer
 from rest_framework.generics import ListAPIView
 from django_filters.rest_framework import DjangoFilterBackend
@@ -18,6 +18,7 @@ def main_page(request):
         'projects': project_filter.qs
     }
     return render(request, 'main_page.html', context)
+
 
 
 # LIST API VIEW
@@ -55,22 +56,6 @@ class ProjectListView(ListView):
         return context
 
 
-# def main_page(request):
-#     if request.method == 'POST':
-#         clientform = AddClientForm(request.POST)
-#         if clientform.is_valid():
-#             # print(form.cleaned_data)
-#             # return HttpResponseRedirect("/add")
-#             try:
-#                 clientform.save()
-#                 print(clientform.cleaned_data)
-#                 # return redirect('admin')
-#             except:
-#                 clientform.add_error(None, "Error")
-#     else:
-#         clientform = AddClientForm()
-#     context = {
-#             'projects': Project.objects.all()
-#         }
-#     return render(request, 'main_page.html', context)
-
+class ProjectDetailView(DetailView):
+    model = Project
+    template_name = "project_detail.html"

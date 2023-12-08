@@ -24,7 +24,10 @@ class Project(models.Model):
     project_client = models.ForeignKey(Client, on_delete=models.PROTECT, null=True, related_name='project')
     project_product = models.CharField(max_length=512)
     project_sum = models.IntegerField(default=0)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL", null=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    
+    def get_absolute_url(self):
+        return reverse("project_detail", kwargs={"slug": self.slug})
     
     class Meta:
         ordering = ["id"]
