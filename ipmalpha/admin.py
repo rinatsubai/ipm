@@ -5,8 +5,8 @@ from ipmalpha.models import *
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'slug', 'project_name', 'project_status', 'project_product', 'project_client', 'project_sum', 'project_created', 'project_finished')
-    prepopulated_fields = {"slug": ("project_name", )}
+    list_display = ('id', 'project_name', 'project_status', 'project_product', 'project_client', 'project_sum', 'project_created', 'project_finished')
+    # prepopulated_fields = {"slug": ("project_name", )}
     
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):

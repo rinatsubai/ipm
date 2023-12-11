@@ -20,6 +20,7 @@ class AddClientForm(forms.ModelForm):
             'client_phone': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Телефон'}),
             'client_roletype': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Тип клиента'}),
             'client_agreements': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Ссылка на договор'}),
+            # 'slug': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Slug'}),
         }
 
         

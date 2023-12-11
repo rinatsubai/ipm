@@ -9,16 +9,34 @@ from ipmalpha.serializers import ProjectSerializer
 from rest_framework.generics import ListAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 
-# MAIN PAGE
+# PROJECTS PAGE
 
-def main_page(request):
-    project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
-    context={
-        'form': project_filter.form,
-        'projects': project_filter.qs
-    }
-    return render(request, 'main_page.html', context)
-
+def projects_page(request):
+    all_projects = Project.objects.all()
+    # project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
+    # context={
+    #     # 'form': project_filter.form,
+    #     # 'projects': project_filter.qs,
+        
+    # }
+    if request.method == 'POST':
+        projectform = AddProjectForm(request.POST)
+        if projectform.is_valid():
+            # print(form.cleaned_data)
+            # return HttpResponseRedirect("/add")    
+                try:
+                    projectform.save()
+                    # print(projectform.cleaned_data)
+                    return redirect('http://127.0.0.1:8000/projects')
+                    
+                    
+                except:
+                    projectform.add_error(None, "Error")
+                projectform = AddProjectForm()
+        
+    else:
+        projectform = AddProjectForm()
+    return render(request, 'projects_page.html', {'projects': Project.objects.all(), 'projectform': projectform, 'all_projects': all_projects})
 
 
 # LIST API VIEW
@@ -34,7 +52,7 @@ class ProjectListAPIView(ListAPIView):
 
 class ProjectListView(ListView):
     queryset = Project.objects.all()
-    template_name = 'main_page.html'
+    template_name = 'projects_page.html'
     context_object_name = 'projects'
     
     def get_queryset(self):

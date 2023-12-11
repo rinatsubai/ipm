@@ -8,13 +8,7 @@ from django.views.generic import ListView, DetailView
 from rest_framework.viewsets import ModelViewSet
 from ipmclients.serializers import *
 
-def ShowClients(request, client_slug):
-    post = get_object_or_404(Client, slug=client_slug)
-    
-    context: {
-        'post': post, 
-        
-    }
+
 
 def clients_filter(request):
     all_projects = Project.objects.all()
@@ -47,12 +41,12 @@ def clients_page(request):
             # return HttpResponseRedirect("/add")    
                 try:
                     clientform.save()
-                    print(clientform.cleaned_data)
+                    # print(clientform.cleaned_data)
                     return redirect('http://127.0.0.1:8000/clients')
                     
                 except:
                     clientform.add_error(None, "Error")
-        
+        clientform = AddClientForm()
     else:
         clientform = AddClientForm()
     return render(request, 'clients_page.html', {'clients': Client.objects.all(), 'clientform': clientform, 'all_projects': all_projects})
