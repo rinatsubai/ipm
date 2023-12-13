@@ -1,7 +1,7 @@
 from django.db import models
+from ipmalpha.models import *
 from django.urls import reverse
 from django.utils import timezone
-from autoslug import AutoSlugField
 
 # Create your models here.
 class Client(models.Model):
@@ -20,6 +20,14 @@ class Client(models.Model):
     def get_absolute_url(self):
         return reverse("client_detail", kwargs={'pk': self.pk})
         # return reverse("client_detail", args=[str(self.id)])
+    
+    def client_projects_sum(self, Project):
+        qs2 = Client.objects.all()
+        for c in qs2:
+            c_id = c.id
+            p = Project.objects.filter(project_client = c_id)
+            return(p)
+    
     
     class Meta:
         ordering = ["id"]

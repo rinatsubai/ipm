@@ -2,6 +2,7 @@ from django.shortcuts import render
 from ipmclients.forms import AddClientForm
 from ipmalpha.models import *
 from ipmalpha.forms import *
+from finance.models import *
 from ipmclients.models import *
 from ipmalpha.filters import *
 from django.views.generic import ListView, DetailView
@@ -36,7 +37,7 @@ def projects_page(request):
         
     else:
         projectform = AddProjectForm()
-    return render(request, 'projects_page.html', {'projects': Project.objects.all(), 'projectform': projectform, 'all_projects': all_projects})
+    return render(request, 'projects_page.html', {'projects': Project.objects.all(), 'projectform': projectform, 'all_projects': all_projects, 'transaction': Transaction.objects.all()})
 
 
 # LIST API VIEW
@@ -73,7 +74,12 @@ class ProjectListView(ListView):
         context['form'] = self.filterset.form
         return context
 
-
 class ProjectDetailView(DetailView):
     model = Project
     template_name = "project_detail.html"
+    def get_context_data(self, **kwargs):
+        context = super(ProjectDetailView, self).get_context_data(**kwargs)
+        context['projecsall'] = Project.objects.all()
+
+        return context
+    

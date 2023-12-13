@@ -62,3 +62,8 @@ class ClientSerialAPI(ModelViewSet):
 class ClientDetailView(DetailView):
     model = Client
     template_name = "client_detail.html"
+    def get_context_data(self, **kwargs):
+        context = super(ClientDetailView, self).get_context_data(**kwargs)
+        context['clientsall'] = Client.objects.all()
+
+        return context

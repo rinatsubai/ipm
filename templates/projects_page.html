@@ -28,7 +28,13 @@
                                 <td scope="row" class="text-secondary"> {{ project.id }} </td>
                                 <td scope="row"> <a href="{{ project.get_absolute_url }}"> {{ project.project_name }} </a> </td>
                                 <td scope="row" class="text-secondary"> {{ project.project_created }} </td>
-                                <td scope="row" class="text-secondary"> {{ project.project_finished }} </td>
+                                <td scope="row" class="text-secondary"> 
+                                    {% if project.project_finished %}
+                                    {{ project.project_finished }}
+                                    {% else %}
+                                    Project is active
+                                    {% endif %}
+                                 </td>
                                 <td scope="row"> <a href="{{ project.project_client.get_absolute_url }}">{{ project.project_client.client_name }} </a></td>
                                 <td scope="row"> 
                                     <span class="text-{{ project.project_status.status_color }}"> {{ project.project_status }} </span>

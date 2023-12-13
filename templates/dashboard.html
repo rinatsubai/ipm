@@ -1,0 +1,63 @@
+{% extends 'main/layout.html' %}
+{% load humanize %}
+
+{% block title %} Дашборд {% endblock %}
+{% block content %}
+    <div class="row">  
+        <h2 class="pt-3 pb-3 m-4">Dashboard</h2>
+      <div class="col-sm-2">
+        <div class="card p-2">
+            <div class="card-body">
+                <h1 class="display-4">{{clients.count}}</h1>
+                <h5 class="card-title text-secondary">Clients</h5>
+                {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> {% endcomment %}
+                <br/><a href="/clients" class="btn btn-primary">Clients</a>
+            </div>
+        </div>
+    </div>
+        <div class="col-sm-2">
+            <div class="card p-2">
+                <div class="card-body">
+                    <h1 class="display-4">{{projects.count}}</h1>
+                    <h5 class="card-title text-secondary">Projects</h5>
+                    {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> {% endcomment %}
+                    <br/><a href="/projects" class="btn btn-primary">Projects</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card p-2">
+                <div class="card-body">
+                    <h1 class="display-4">{{sum.total|intcomma}} ₽</h1>
+                    <h5 class="card-title text-secondary">Total Projects Sum</h5>
+                    <br/><a href="/projects" class="btn btn-primary">Transactions</a>
+                    {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> {% endcomment %}
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card p-2">
+                <div class="card-body">
+                    <h1 class="display-4">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
+                    <h5 class="card-title text-secondary">Total Clients Sum</h5>
+                    <br/><a href="/projects" class="btn btn-primary">Transactions</a>
+                    {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>  
+    {% comment %} <div class="row">
+        <div class="col-sm-3">
+            <div class="card p-2">
+                <div class="card-body">
+                    <h3 class="card-title">Actions</h3>
+                    <p class="card-text">Here are the most popular actions you can use quickly:</p> <br/>
+                    <a href="/clients" class="btn btn-primary container-fluid">Add client</a>
+                    <p class="text-secondary">Click here to create a new client</p> <br/>
+                    <a href="/clients" class="btn btn-primary container-fluid">Add project</a>
+                    <p class="text-secondary">Click here to create a new project</p>
+                </div>
+            </div>
+        </div>
+    </div>        {% endcomment %}
+{% endblock %}
