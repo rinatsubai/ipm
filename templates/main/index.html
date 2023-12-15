@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="has-background-light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IPM | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css'%}">
+  </head>
+  <body>
+    {% include 'main/sidebar.html' %}
+    
+    <section class="section body-content pt-4">
+      
+        <div class="columns pl-6">
+          {% include 'main/toolbar.html' %}
+        </div>
+        <div class="columns pl-6">
+          {% block content %}
+          {% endblock %}
+        </div>
+    </section>
+  </body>
+  <script src="{% static 'js/template.js' %}"></script>
+</html>

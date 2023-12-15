@@ -83,3 +83,5 @@ class ProjectDetailView(DetailView):
 
         return context
     
+def projects_page_2(request):
+    return render(request, 'projects.html')
