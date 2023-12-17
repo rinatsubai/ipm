@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('', include("ipmclients.urls")),
     path('', include("ipmalpha.urls")),
+    path('', include("finance.urls")),
 ]
