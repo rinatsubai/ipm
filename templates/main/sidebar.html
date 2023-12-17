@@ -1,24 +1,25 @@
 {% load static %}
 {% comment %} Sidebar big {% endcomment %}
 <div class="box has-background-white sidebar-big is-pulled-left is-hidden">
-    <button class="button container close-sidebar">Close</button>
+    <button class="button container close-sidebar is-pulled-right is-ghost">Close</button>
     <div class="sidebar-content">
-      <ul>
-        <li class="sidebar-item">Dashboard</li>
-        <li class="sidebar-item">Projects</li>
-        <li class="sidebar-item">Clients</li>
-        <li class="sidebar-item">Finances</li>
+      <ul class="pt-5">
+        <li class="sidebar-item"><a class="button is-ghost" href="/">Dashboard</a></li>
+        <li class="sidebar-item"><a class="button is-ghost" href="/projects/">Projects</a></li>
+        <li class="sidebar-item"><a class="button is-ghost" href="/clients">Clients</a></li>
+        <li class="sidebar-item disabled"><a class="button" title="Disabled button" disabled href="/">Finances</a></li>
       </ul>
     </div>
   </div>
 {% comment %} Sidebar small {% endcomment %}
-<div class="box has-background-white sidebar-small is-pulled-left">
-    <button class="button container open-sidebar">Open</button>
-    <ul>
-      <li class="sidebar-icon has-text-centered"></li>
-      <li class="sidebar-icon has-text-centered"></li>
-      <li class="sidebar-icon has-text-centered"></li>
-      <li class="sidebar-icon has-text-centered"></li>
+<div class="box has-background-white sidebar-small is-pulled-left is-ghost">
+    <button class="button open-sidebar pl-5">Open</button>
+    <div class="sidebar-content">
+    <ul class="pt-5">
+      <li class="sidebar-icon  dashboard-icon"><a href="/"><img src="{% static 'assets/img/dashboard-white.png'%}" class="icon"></a></li>
+      <li class="sidebar-icon  projects-icon"><a href="/projects/"><img src="{% static 'assets/img/projects-white.png'%}" class="icon"/></a></li>
+      <li class="sidebar-icon  clients-icon"><a href="/clients/"><img src="{% static 'assets/img/clients-white.png'%}" class="icon"/></a></li>
+      <li class="sidebar-icon  finance-icon"><a disabled><img src="{% static 'assets/img/finance-white.png'%}" class="icon"/></a></li>
     </ul>
   </div>
 </div>

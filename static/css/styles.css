@@ -34,6 +34,7 @@ html{
     padding-top: 30px;
     padding-right: 30px;
 }
+
   .close-sidebar{
     border: 0px;
     width: 30px;
@@ -56,6 +57,24 @@ html{
     height: 45px;
     border-radius: 100px;
     background-color: grey;
+    text-align: center;
+    line-height: 42pt;
+  }
+
+  .dashboard-icon{
+    background-color: #5F68B5;
+  }
+  
+  .projects-icon{
+    background-color: #3C9098;
+  }
+  
+  .clients-icon{
+    background-color: #834690;
+  }
+
+  .finance-icon{
+    background-color: #ebebeb;
   }
 
   .sidebar-opened {

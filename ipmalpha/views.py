@@ -49,6 +49,7 @@ class ProjectListView(ListView):
     queryset = Project.objects.all()
     template_name = 'projects_page.html'
     context_object_name = 'projects'
+    filterset_class = ProjectFilter
     
     def get_queryset(self):
         queryset = super().get_queryset()

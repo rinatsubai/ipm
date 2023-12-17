@@ -27,10 +27,10 @@
       </tr>
       {% if projects %}
         {% for project in projects %}
-        <tr class="is-size-6">
+        <tr class="is-size-6 truncate-text">
           <td>{{ project.id }}
           </td>
-          <td><a href="{{ project.get_absolute_url }}"> {{ project.project_name }}</a>
+          <td class="truncate-text"><a href="{{ project.get_absolute_url }}"> {{ project.project_name }}</a>
           </td>
           <td>{{ project.project_created }}
           </td>
