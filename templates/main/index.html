@@ -11,8 +11,8 @@
   <body>
     {% include 'main/sidebar.html' %}
     
+    
     <section class="section body-content pt-4">
-      
         <div class="columns pl-6">
           {% include 'main/toolbar.html' %}
         </div>
@@ -21,6 +21,8 @@
           {% endblock %}
         </div>
     </section>
+    {% block scripts %}
+    {% endblock %}
   </body>
   <script src="{% static 'js/template.js' %}"></script>
 </html>

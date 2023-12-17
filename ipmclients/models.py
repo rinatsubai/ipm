@@ -5,7 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 class Client(models.Model):
-    client_name = models.CharField(max_length=512)
+    client_name = models.CharField(max_length=512, unique = True)
     def __str__(self):
         return self.client_name
     client_contact = models.CharField(max_length=512, null=True)

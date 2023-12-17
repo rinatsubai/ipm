@@ -1,77 +1,88 @@
-{% extends 'main/layout.html' %}
-
+{% extends 'main/index.html' %}
+{% load static %}
+{% block title %}Projects{% endblock %}
 {% block content %}
-
-    {% comment %} Table {% endcomment %}
-    <div class="col-9">
-        <div class="card pl-5">
-            <h2 class="pt-3 pb-3 m-4" style=""> Projects </h2>
-                <table class="table table-dark table-hover text-truncate" style="font-size: 14px">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-secondary">  </th>
-                            <th scope="col" class="text-secondary">#</th>
-                            <th scope="col" class="text-secondary">Name </th>
-                            <th scope="col" class="text-secondary">Start </th>
-                            <th scope="col" class="text-secondary">Finish </th>
-                            <th scope="col" class="text-secondary">Client </th>
-                            <th scope="col" class="text-secondary">Status </th>
-                            <th scope="col" class="text-secondary">Product </th>
-                            <th scope="col" class="text-secondary">Sum </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% if projects %}
-                            {% for project in projects %}
-                            <tr>
-                                <td> </td>
-                                <td scope="row" class="text-secondary"> {{ project.id }} </td>
-                                <td scope="row"> <a href="{{ project.get_absolute_url }}"> {{ project.project_name }} </a> </td>
-                                <td scope="row" class="text-secondary"> {{ project.project_created }} </td>
-                                <td scope="row" class="text-secondary"> 
-                                    {% if project.project_finished %}
-                                    {{ project.project_finished }}
-                                    {% else %}
-                                    Project is active
-                                    {% endif %}
-                                 </td>
-                                <td scope="row"> <a href="{{ project.project_client.get_absolute_url }}">{{ project.project_client.client_name }} </a></td>
-                                <td scope="row"> 
-                                    <span class="text-{{ project.project_status.status_color }}"> {{ project.project_status }} </span>
-                                    </td>
-                                <td scope="row"> {{ project.project_product }} </td>
-                                <td scope="row"> {{ project.project_sum }} </td>
-                            </tr>
-                            {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td></td>
-                                <td colspan="8"><span class="text-secondary">No projects yet. Create a project in a right sidebar to start working. </span> </td>
-                            </tr>
-                        {% endif%}
-                </table>
-        </div>
+<div class="column is-11 py-6 px-6">
+    <div class="box has-background-white">
+    <h1 class="is-size-3 has-text-centered has-text-weight-semibold pt-3 pb-5">Projects
+      <button class="button is-pulled-right modalProjectsFormButton" data-target="modalProjectsForm">Create</button></h1> 
+    <table class="table is-hoverable is-fullwidth">
+      <tr>
+        <th>#
+        </th>
+        <th>Name
+        </th>
+        <th>Created
+        </th>
+        <th>Finished
+        </th>
+        <th>Client
+        </th>
+        <th>Status
+        </th>
+        <th>Product
+        </th>
+        <th>Sum
+        </th>
+      </tr>
+      {% if projects %}
+        {% for project in projects %}
+        <tr class="is-size-6">
+          <td>{{ project.id }}
+          </td>
+          <td><a href="{{ project.get_absolute_url }}"> {{ project.project_name }}</a>
+          </td>
+          <td>{{ project.project_created }}
+          </td>
+          <td>{% if project.project_finished %}
+            {{ project.project_finished }}
+            {% else %}
+            Project is active
+            {% endif %}
+          </td>
+          <td><a href="{{ project.project_client.get_absolute_url }}">{{ project.project_client.client_name }} </a>
+          </td>
+          <td><span class="text-{{ project.project_status.status_color }}"> {{ project.project_status }} </span>
+          </td>
+          <td>{{ project.project_product }}
+          </td>
+          <td>{{ project.project_sum }}
+          </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td></td>
+          <td colspan="8"><span class="text-secondary">No projects yet. Create a project in a right sidebar to start working. </span> </td>
+        </tr>
+        {% endif%}
+    </table>
     </div>
-    {% comment %} Form {% endcomment %}
-    <div class="col-3" style="">
-        <div class="card p-3" style="">
-            <h2 class="mx-auto pb-3 pt-3 m-4">Add project</h2>
-              <div class="form-group mx-auto" style="">    
-              <form action="{% url 'projects_page' %}" method="post"> 
-                    {% csrf_token %}
-                    {% for f in projectform %}
-                    
-                    <div class="pb-4">
-                      {% comment %} <label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label> {% endcomment %}
-                      {{ f }}</div>
-                    <div class="form-error">{{ projectform.f.errors }}</div>
-                    {% endfor %}
-                    <button type="submit" class="btn btn-primary mt-4 mb-4 container-fluid" style="">Add</button>
-              </form>
-              <br/>
-              <p class="mx-auto text-secondary" style="font-size: 12px">* - Обязательное поле</p>
-              </div>
-        </div>
+  </div>
+  {% comment %} Modal form {% endcomment %}
+  <div class="modal modalProjectsForm">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title has-text-centered">Create Project</p>
+        <button class="delete modalProjectsFormCloser" aria-label="close"></button>
+      </header>
+      {% include 'main/project_create.html' %}
+      </div>
+  </div>
+  <div class="column is-1">
+    <div class="">
+      <div class="notification notification-on-top is-primary is-hidden has-text-grey-light pt-6 pl-0 ml-0">
+        {% comment %} <button class="delete"></button> {% endcomment %}
+        <p class="is-hidden successmessage"> {{successmessagetext}} </p>
+        <p class=""> {{ projectform.errors }} </p>
+      </div>
     </div>
-</div>
-{% endblock %}
+  </div>
+  {% endblock %}
+  {% block scripts %}
+  <script>
+  </script>
+  {% endblock %}
+  
+  

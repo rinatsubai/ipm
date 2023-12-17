@@ -1,11 +1,11 @@
 html{
-  overflow-y:hidden;
+  /* overflow-y:hidden; */
 }
 /* Sidebar */
 .sidebar-big {
   height: 110vh;
   /* z-index: 999; */
-  position: sticky;
+    position: sticky;
     display: inline-block;
     vertical-align: top;
     max-height: 100%;
@@ -15,7 +15,7 @@ html{
     top: 0;
     bottom: 0;
     padding-left: 30px;
-    padding-top: 30px;
+    /* padding-top: 30px; */
     padding-right: 30px;
 }
 .sidebar-small {
@@ -71,3 +71,13 @@ html{
   .body-content{
     margin: 0px;
   }
+
+  /* projects */
+  .project-line{
+    height: 50px;
+  }
+
+  .is-borderless { border: 0;
+  border-color: none;}
+  .is-bordered { border: 1px solid #DBDBDB}
+

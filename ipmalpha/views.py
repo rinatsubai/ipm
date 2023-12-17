@@ -1,4 +1,6 @@
+import time
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from ipmclients.forms import AddClientForm
 from ipmalpha.models import *
 from ipmalpha.forms import *
@@ -13,31 +15,23 @@ from django_filters.rest_framework import DjangoFilterBackend
 # PROJECTS PAGE
 
 def projects_page(request):
-    all_projects = Project.objects.all()
-    # project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
-    # context={
-    #     # 'form': project_filter.form,
-    #     # 'projects': project_filter.qs,
-        
-    # }
+    all_projects = Project.objects.all()    
+    successmessagetext = ""
     if request.method == 'POST':
         projectform = AddProjectForm(request.POST)
         if projectform.is_valid():
-            # print(form.cleaned_data)
-            # return HttpResponseRedirect("/add")    
-                try:
-                    projectform.save()
-                    # print(projectform.cleaned_data)
-                    return redirect('http://127.0.0.1:8000/projects')
-                    
-                    
-                except:
-                    projectform.add_error(None, "Error")
+            successmessagetext = 'Successfully created the project'
+            try:
+                projectform.save()
+                messages.success(request, 'Project Added')
+                return HttpResponseRedirect(reverse('projects_page'))    
+            except:
+                projectform.add_error(None, "Error")
                 projectform = AddProjectForm()
-        
     else:
         projectform = AddProjectForm()
-    return render(request, 'projects_page.html', {'projects': Project.objects.all(), 'projectform': projectform, 'all_projects': all_projects, 'transaction': Transaction.objects.all()})
+    client_results = Client.objects.all()
+    return render(request, 'projects_page.html', {'projects': Project.objects.all(), 'projectform': projectform, 'all_projects': all_projects, 'transaction': Transaction.objects.all(), 'showclient': client_results, 'successmessagetext': successmessagetext})
 
 
 # LIST API VIEW
@@ -84,4 +78,4 @@ class ProjectDetailView(DetailView):
         return context
     
 def projects_page_2(request):
-    return render(request, 'projects.html')
+    return render(request, 'projects-2.html')
