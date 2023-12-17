@@ -1,0 +1,55 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+<div class="column is-11 py-6 px-6">
+    <div class="box has-background-white">
+        <h1 class="is-size-3 has-text-centered has-text-weight-semibold pt-3 pb-5">{{encoded_data }}Transactions {% if 'lw' in request.path %}This Week {% endif %}
+            <div class="is-grouped">
+          
+          <button class="button is-pulled-right modalProjectsFormButton ml-4" disabled data-target="modalProjectsForm">Create</button>
+          {% if not 'lw' in request.path %}
+          <a class="button is-pulled-right" href="../finance/lw">Last week</a>
+          {% else %}
+          <a class="button is-pulled-right" href="../../finance/">Remove filter</a>
+          {% endif %}
+        </div></h1>
+        <table class="table is-hoverable is-fullwidth">
+          <tr>
+            <th>#
+            </th>
+            <th>Date
+            </th>
+            <th>Amount
+            </th>
+            <th>Item
+            </th>
+            <th>Flow
+            </th>
+            <th>Project
+            </th>
+        </tr>
+        {% for transaction in data %}
+        <tr>
+            <td> {{transaction.id}}
+            </td>
+            <td>{{transaction.transaction_date}}
+            </td>
+            <td>{{transaction.amount}}
+            </td>
+            <td>{{transaction.item}}
+            </td>
+            <td>{{transaction.flow}}
+            </td>
+            <td>{{transaction.project}}
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+  </div>
+  {% endblock %}
+  {% block scripts %}
+  <script>
+  </script>
+  {% endblock %}
