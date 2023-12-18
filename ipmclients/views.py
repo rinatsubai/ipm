@@ -7,7 +7,10 @@ from ipmclients.models import *
 from django.views.generic import ListView, DetailView
 from rest_framework.viewsets import ModelViewSet
 from ipmclients.serializers import *
-
+from ipmclients.views import *
+import requests
+from django_filters.rest_framework import DjangoFilterBackend
+from ipmclients.filters import ClientsAPIFilter
 
 
 def clients_filter(request):
@@ -55,9 +58,10 @@ def clients_page(request):
 def clients_app(request):
     return render(request, 'clients.filter.html',)
 
-class ClientSerialAPI(ModelViewSet):
+class ClientAPIView(ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
+    filter_backends = (DjangoFilterBackend, )
     
 class ClientDetailView(DetailView):
     model = Client
@@ -67,3 +71,9 @@ class ClientDetailView(DetailView):
         context['clientsall'] = Client.objects.all()
 
         return context
+    
+def clients_new_page(request):
+    response = requests.get('http://127.0.0.1:8000/api/clients/')
+    data = response.json
+    return render(request, 'clients.html', {'data': data,})
+        

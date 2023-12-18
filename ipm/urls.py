@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.urls import include, path
-from ipmclients.views import clients_page, clients_filter, ClientSerialAPI
+from ipmclients.views import clients_page, clients_filter, ClientAPIView
 from ipmalpha import views
 from ipmalpha.views import projects_page
 from rest_framework.routers import SimpleRouter, DefaultRouter
 from dashboard.views import dashboard 
 
 router = DefaultRouter()
-router.register(r'api/clients', ClientSerialAPI)
+router.register(r'api/clients', ClientAPIView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

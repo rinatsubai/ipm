@@ -1,6 +1,6 @@
 {% extends 'main/index.html' %}
 {% load static %}
-{% block title %}Finance{% endblock %}
+{% block title %}Clients{% endblock %}
 {% block content %}
 <div class="column is-11 py-6 px-6">
     <div class="box has-background-white">
@@ -15,34 +15,43 @@
           {% endif %}
         </div></h1>
         <table class="table is-hoverable is-fullwidth">
-          <tr>
+        <tr>
             <th>#
             </th>
-            <th>Date
+            <th>Client
             </th>
-            <th>Amount
+            <th>Contact
             </th>
-            <th>Item
+            <th>Telegram
             </th>
-            <th>Flow
+            <th>Phone
             </th>
-            <th>Project
+            <th>Roletype
+            </th>
+            <th>Projects
+            </th>
+            <th>Agreements
             </th>
         </tr>
-        {% for transaction in data %}
+        {% for client in data %}
         <tr>
-            <td> {{transaction.id}}
+            <td> {{client.id}}
             </td>
-            <td>{{transaction.transaction_date}}
+            <td> {{client.client_name}}
             </td>
-            <td>{{transaction.amount}}
+            <td>{{client.client_contact}}
             </td>
-            <td>{{transaction.item}}
+            <td>{{client.client_telegram}}
             </td>
-            <td>{{transaction.flow}}
+            <td>{{client.client_phone}}
             </td>
-            <td>{{transaction.project}}
+            <td>{{client.client_roletype}}
             </td>
+            <td>{{client.client_projects}}
+            </td>
+            <td>{{client.client_agreements}}
+            </td>
+
         </tr>
         {% endfor %}
         </table>
