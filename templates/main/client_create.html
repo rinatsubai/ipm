@@ -1,5 +1,5 @@
 <section class="modal-card-body has-background-light">
-    <form action="{% url 'projects_page' %}"class="m-6 project-create-form" method="post"> 
+    <form action="{% url 'clients' %}"class="m-6 client-create-form" method="post"> 
       {% csrf_token %}
       {% comment %} {% for f in projectform %} {% endcomment %}
       
@@ -12,33 +12,36 @@
         {% else %}
         {{ f }}
         {%endif%} {% endcomment %}
-        <p class="has-text-centered has-text-grey-light mb-6">Please, fill out the fields in order to create a new project. <br/>Be careful.</p>
+        <p class="has-text-centered has-text-grey-light mb-6">Пожалуйста, заполните данные о новом клиенте.</p>
         <div class="control">
           {% csrf_token %}
-            {{ projectform.project_name }}
-        </div>
-        <div class="select mb-5 is-fullwidth">
-          {{ projectform.project_status }}
-        </div>
-        <div class="select mb-5 is-fullwidth">
-          {{ projectform.project_client }}
+            {{ clientform.client_name }}
         </div>
         <div class="control">
-        {{ projectform.project_product }}
+          {{ clientform.client_contact }}
+        </div>
+        <div class="control">
+          {{ clientform.client_telegram }}
+        </div>
+        <div class="control">
+        {{ clientform.client_phone }}
     </div>
         <div class="control">
-        {{ projectform.project_sum }}
+        {{ clientform.client_roletype }}
+    </div>
+    <div class="control">
+        {{ clientform.client_agreements }}
     </div>
       </div>
 
-      <div class="">{{ projectform.errors }}</div>
+      <div class="">{{ clientform.errors }}</div>
       {% comment %} {% endfor %} {% endcomment %}
       <div class="button-group has-text-centered">
-        <button type="submit" class="button button-create-project is-primary mt-5 mr-3">Create project</button>
+        <button type="submit" class="button button-create-project is-primary mt-5 mr-3">Добавить клиента</button>
         <button class="button mt-5  modalProjectsFormCancel is-light">Cancel</button>
       </div>
     </form>
-    <br/>
-    <p class="has-text-centered has-text-grey-light mb-6" style="font-size: 12px">* - Обязательное поле</p>
+    
+    <p class="has-text-centered has-text-grey-light mb-3" style="font-size: 12px">* - Обязательное поле</p>
   </section>
   

@@ -11,6 +11,9 @@ from django.views.generic import ListView, DetailView
 from ipmalpha.serializers import ProjectSerializer
 from rest_framework.generics import ListAPIView
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.views import APIView
 
 # PROJECTS PAGE
 
@@ -20,19 +23,25 @@ def projects_page(request):
     if request.method == 'POST':
         projectform = AddProjectForm(request.POST)
         if projectform.is_valid():
-            successmessagetext = 'Successfully created the project'
+            successmessagetext = 'Проект был добавлен в список проектов.'
             try:
-                projectform.save()
-                messages.success(request, 'Project Added')
-                return HttpResponseRedirect(reverse('projects_page'))    
+                instance = projectform.save()
+                messages.success(request, 'Добавлен проект')
+                return redirect('ProjectDetailView')
+                # return HttpResponseRedirect(reverse(f'projects/{instance.pk}'))
+                # return redirect('clients')    
             except:
                 projectform.add_error(None, "Error")
                 projectform = AddProjectForm()
     else:
         projectform = AddProjectForm()
     client_results = Client.objects.all()
-    return render(request, 'projects_page.html', {'projects': Project.objects.all(), 'projectform': projectform, 'all_projects': all_projects, 'transaction': Transaction.objects.all(), 'showclient': client_results, 'successmessagetext': successmessagetext})
-
+    projectform = AddProjectForm
+    projectfilterform = FilterProjectForm
+    project_name_result = request.GET.get('project_name')
+    if project_name_result:
+        all_projects = all_projects.filter(project_name__icontains=project_name_result)
+    return render(request, 'projects_page.html', {'projects': all_projects, 'projectform': projectform, 'transaction': Transaction.objects.all(), 'showclient': client_results, 'successmessagetext': successmessagetext, 'projectfilterform': projectfilterform, 'project_name_result': project_name_result})
 
 # LIST API VIEW
 

@@ -61,6 +61,7 @@ document.addEventListener('keydown', (event) => {
 // success notification
 
 var projectsForm = document.querySelector('.project-create-form');
+var clientsForm = document.querySelector('.client-create-form');
 var sucessmessage = document.querySelector('.successmessage');
 
 function closeNotification () {
@@ -78,5 +79,10 @@ function showNotification () {
 
 if(projectsForm.addEventListener){
     projectsForm.addEventListener("submit", showNotification());
+}
+
+if(clientsForm.addEventListener){
+    clientsForm.addEventListener("submit", showNotification());
+    console.log('worked');
 }
 

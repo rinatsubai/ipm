@@ -1,25 +1,29 @@
 {% load static %}
 {% comment %} Sidebar big {% endcomment %}
 <div class="box has-background-white sidebar-big is-pulled-left is-hidden">
-    <button class="button container close-sidebar is-pulled-right is-ghost">Close</button>
+    {% comment %} <button class="button container close-sidebar is-pulled-right is-ghost">Close</button> {% endcomment %}
     <div class="sidebar-content">
-      <ul class="pt-5">
-        <li class="sidebar-item"><a class="button is-ghost" href="/">Dashboard</a></li>
-        <li class="sidebar-item"><a class="button is-ghost" href="/projects/">Projects</a></li>
-        <li class="sidebar-item"><a class="button is-ghost" href="/clients-2">Clients</a></li>
-        <li class="sidebar-item disabled"><a class="button is-ghost" href="/finance/">Finances</a></li>
+      <a class="close-sidebar is-pulled-right"><img src="{% static 'assets/img/indent.svg'%}" width="16px"/></a>
+      <ul class="menu-list pt-5 has-text-left">
+        <li class="sidebar-menu"><a class="" href="/"><img class="open-sidebar-icon pr-2" src="{% static 'assets/img/home.svg'%}">Дашборд</a></li>
+        <li class="sidebar-menu"><a class=""href="/projects/"><img class="open-sidebar-icon pr-2" src="{% static 'assets/img/document-text.svg'%}"/>Проекты</a></li>
+        <li class="sidebar-menu"><a class="" href="/clients"><img class="open-sidebar-icon pr-2" src="{% static 'assets/img/clients.svg'%}"/>Клиенты</a></li>
+        <li class="sidebar-menu"><a class="" href="/finance/"><img class="open-sidebar-icon pr-2" src="{% static 'assets/img/finance.svg'%}"/>Финансы</a></li>
+        <li class="sidebar-menu"><a class="" href="/admin/"><img class="open-sidebar-icon pr-2" src="{% static 'assets/img/admin.svg'%}"/>Админ</a></li>
       </ul>
     </div>
   </div>
 {% comment %} Sidebar small {% endcomment %}
 <div class="box has-background-white sidebar-small is-pulled-left is-ghost">
-    <button class="button open-sidebar pl-5">Open</button>
     <div class="sidebar-content">
-    <ul class="pt-5">
-      <li class="sidebar-icon  dashboard-icon"><a href="/"><img src="{% static 'assets/img/dashboard-white.png'%}" class="icon"></a></li>
-      <li class="sidebar-icon  projects-icon"><a href="/projects/"><img src="{% static 'assets/img/projects-white.png'%}" class="icon"/></a></li>
-      <li class="sidebar-icon  clients-icon"><a href="/clients-2"><img src="{% static 'assets/img/clients-white.png'%}" class="icon"/></a></li>
-      <li class="sidebar-icon  finance-icon"><a href="/finance/"><img src="{% static 'assets/img/finance-white.png'%}" class="icon"/></a></li>
+      <a class="open-sidebar has-text-centered pl-4 pt-4" height="32px"><img src="{% static 'assets/img/indent-open.svg'%}" width="16px"/></a>
+    <ul class="pt-5 pl-3">
+      <li class="sidebar-icon"><a href="/"><img class="hovered-icon" src="{% static 'assets/img/home.svg'%}"></a></li>
+      <li class="sidebar-icon"><a href="/projects/"><img class="hovered-icon" src="{% static 'assets/img/document-text.svg'%}"/></a></li>
+      <li class="sidebar-icon"><a href="/clients"><img class="hovered-icon" src="{% static 'assets/img/clients.svg'%}"/></a></li>
+      <li class="sidebar-icon"><a href="/finance/"><img class="hovered-icon" src="{% static 'assets/img/finance.svg'%}"/></a></li>
+      <li class="sidebar-icon"><a href="/admin/"><img class="hovered-icon" src="{% static 'assets/img/admin.svg'%}"/></a></li>
     </ul>
+
   </div>
 </div>

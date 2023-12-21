@@ -1,14 +1,27 @@
 {% load static %}
 <div class="column is-11 pl-6 pr-6">
-        <div class="field">
-            <p class="control has-icons-left">
-              <input class="input is-rounded" type="text" placeholder="Search projects, clients and everything">
+  {% if projectfilterform %}
+          <form method="GET" action={% url 'projects_page' %} class="form">
+            <div class="field mb-3">
+              <div class="control has-icons-left">
+              {{projectfilterform.project_name}}
               <span class="icon is-small is-left">
                 <img src="{% static 'assets/img/search-icon.png'%}" width="40%">
               </span>
-            </p>
-          </div>
+              </div>
+           </div>
+          </form>
+    {% else %}
+    <div class="field">
+      <p class="control has-icons-left">
+        <input class="input is-rounded" type="text" placeholder="Search projects, clients and everything">
+        <span class="icon is-small is-left">
+          <img src="{% static 'assets/img/search-icon.png'%}" width="40%">
+        </span>
+      </p>
+    </div>
+    {% endif %}
     </div>
     <div class="column is-1 pr-6">
-        <button class="button is-light">Log out</button>
+        <button class="button is-text">Выйти</button>
     </div>

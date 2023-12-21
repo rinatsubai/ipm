@@ -1,0 +1,60 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block title %}Клиент {{object.client_name}}{% endblock %}
+{% block content %}
+<div class="column is-4 py-6 px-6">
+    <div class="box has-background-white pb-6">
+        <p class="has-text-grey pl-3 is-size-5 pt-3" style=""> #{{object.id}}</p>
+        <h1 class="is-size-3 pl-3 has-text-weight-semibold pb-5">Клиент «{{object.client_name}}»</h1>
+        <div class="pl-3">
+            <div class="client-info">{% if client.client_active == true %}
+                <p class="has-text-primary  client-info" style=""> Active</p>
+                {% else %}
+                <p class="has-text-danger client-info-30" style=""> Inactive</p>
+                {% endif %}</div>
+                <h1 class="is-size-5 has-text-weight-semibold pb-3">Контактные данные</h1>
+                <p class="has-text-grey client-info-15" style=""> <strong>Contact:</strong> {{object.client_contact}}</p>
+                <p class="has-text-grey client-info-15" style=""> <strong>Telegram:</strong> {{object.client_telegram}}</p>
+                <p class="has-text-grey client-info-15" style=""> <strong>Phone:</strong> {{object.client_phone}}</p>
+                <p class="has-text-grey client-info-30" style=""> <h1 class="is-size-5 has-text-weight-semibold pt-6 pb-2">Роль и тип:</h1> {{object.client_roletype}}</p>
+                <button class="button is-fullwidth is-primary my-4" {%if object.client_agreements %}href="{{object.client_agreements}}"{% else %} disabled {% endif %}>Папка с договорами</button>
+         </div>
+     </div>
+</div>
+<div class="column is-6 py-6 pr-2">
+    <div class="box has-background-white pb-6">
+        <h1 class="is-size-3 pl-3 has-text-weight-semibold pt-3 pb-5">Список проектов</h1>
+        <table class="table is-hoverable is-fullwidth">
+                <tr>
+                    <th  class=""> #
+                    </th>
+                    <th  class=""> Название проекта
+                    </th>
+                    <th  class=""> Стоимость
+                    </th>
+                    <th  class=""> Дата создания
+                    </th>
+                </tr>
+            {% if client.project.all %}
+                {% for project in client.project.all %}
+                <tr>
+                    <td class=""> {{ project.id }}
+                    </td>
+                    <td> <a href="{{project.get_absolute_url}}">{{ project.project_name }}</a>
+                    </td>
+                    <td> {{ project.project_sum }}
+                    </td>
+                    <td> {{ project.project_created }}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td class="has-text-centered py-6" colspan="4"> У этого клиента еще нет проектов.
+                    </td>
+                </tr>
+        </table>
+            {% endif %}
+    </div>
+</div>
+{% endblock %}

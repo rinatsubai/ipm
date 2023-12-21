@@ -9,7 +9,6 @@ class ProjectFilter(django_filters.FilterSet):
         fields = {
                     'id': ['exact'],
                     'project_name': ['icontains'], 
-                     
                     'project_status': ['exact'], 
                     'project_product': ['icontains'],
                   }

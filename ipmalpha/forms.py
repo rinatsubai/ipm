@@ -27,4 +27,7 @@ class AddProjectForm(forms.ModelForm):
             # 'project_finished': forms.DateTimeInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Finished', 'input-type': 'date'}),
             # 'slug': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Slug'}),
         }
-    
+
+class FilterProjectForm(forms.Form):
+    project_name = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск проектов'})
+                                   )

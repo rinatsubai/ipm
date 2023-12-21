@@ -14,14 +14,13 @@ class AddClientForm(forms.ModelForm):
         model = Client
         fields = ['client_name', 'client_contact', 'client_telegram', 'client_phone', 'client_roletype', 'client_agreements']
         widgets = {
-            'client_name': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Имя клиента*'}),
-            'client_contact': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Контакт*'}),
-            'client_telegram': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Телеграм'}),
-            'client_phone': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Телефон'}),
-            'client_roletype': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Тип клиента'}),
-            'client_agreements': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Ссылка на договор'}),
+            'client_name': forms.TextInput(attrs={'class': 'input mb-5 is-bordered', 'placeholder': 'Название клиента*'}),
+            'client_contact': forms.TextInput(attrs={'class': 'input mb-5 is-bordered', 'placeholder': 'Контактное лицо*'}),
+            'client_telegram': forms.TextInput(attrs={'class': 'input mb-5 is-bordered', 'placeholder': 'Телеграм'}),
+            'client_phone': forms.TextInput(attrs={'class': 'input mb-5 is-bordered', 'placeholder': 'Телефон'}),
+            'client_roletype': forms.TextInput(attrs={'class': 'input mb-5 is-bordered', 'placeholder': 'Роль и тип'}),
+            'client_agreements': forms.TextInput(attrs={'class': 'input mb-5 is-bordered', 'placeholder': 'Ссылка на договор'}),
             # 'slug': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Slug'}),
         }
 
-        
-
+    

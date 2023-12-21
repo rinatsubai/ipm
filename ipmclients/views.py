@@ -11,6 +11,7 @@ from ipmclients.views import *
 import requests
 from django_filters.rest_framework import DjangoFilterBackend
 from ipmclients.filters import ClientsAPIFilter
+from django.contrib import messages
 
 
 def clients_filter(request):
@@ -34,29 +35,27 @@ def clients_filter(request):
 
 
 
-def clients_page(request):
+def clients(request):
     all_projects = Project.objects.all()
-    
     if request.method == 'POST':
         clientform = AddClientForm(request.POST)
+        
         if clientform.is_valid():
+                messages.add_message(request, messages.INFO, "Клиент был добавлен в базу.")
             # print(form.cleaned_data)
             # return HttpResponseRedirect("/add")    
                 try:
-                    clientform.save()
+                    instance = clientform.save()
                     # print(clientform.cleaned_data)
-                    return redirect('http://127.0.0.1:8000/clients')
+                    return redirect('clients')
                     
                 except:
                     clientform.add_error(None, "Error")
-        clientform = AddClientForm()
+                    clientform = AddClientForm()
     else:
         clientform = AddClientForm()
-    return render(request, 'clients_page.html', {'clients': Client.objects.all(), 'clientform': clientform, 'all_projects': all_projects})
+    return render(request, 'clients.html', {'clients': Client.objects.all(), 'clientform': clientform, 'all_projects': all_projects,})
 
-
-def clients_app(request):
-    return render(request, 'clients.filter.html',)
 
 class ClientAPIView(ModelViewSet):
     queryset = Client.objects.all()
@@ -65,7 +64,7 @@ class ClientAPIView(ModelViewSet):
     
 class ClientDetailView(DetailView):
     model = Client
-    template_name = "client_detail.html"
+    template_name = "client_view.html"
     def get_context_data(self, **kwargs):
         context = super(ClientDetailView, self).get_context_data(**kwargs)
         context['clientsall'] = Client.objects.all()

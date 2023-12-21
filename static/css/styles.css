@@ -1,5 +1,16 @@
 html{
+  background: #F4F6FC;
+  background-image: radial-gradient(#9B9B9B 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: -19px -19px;
   /* overflow-y:hidden; */
+}
+
+.polka-dot {
+  background: #F4F6FC;
+  background-image: radial-gradient(#9B9B9B 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: -19px -19px;
 }
 /* Sidebar */
 .sidebar-big {
@@ -41,7 +52,6 @@ html{
   }
   .open-sidebar{
     border: 0px;
-    width: 30px;
   }
 
   .sidebar-item {
@@ -50,31 +60,33 @@ html{
   }
 
   .sidebar-icon {
-    margin-top: 20px;
+    margin-top: 0px;
     color: white;
     display: block;
-    width: 45px;
-    height: 45px;
-    border-radius: 100px;
-    background-color: grey;
     text-align: center;
-    line-height: 42pt;
+    line-height: 36pt;
+  }
+  .hovered-icon:hover{
+    opacity: 0.7;
   }
 
-  .dashboard-icon{
-    background-color: #5F68B5;
+  .sidebar-menu {
+    color: white;
+    display: block;
+    line-height: 24pt;
   }
-  
-  .projects-icon{
-    background-color: #3C9098;
-  }
-  
-  .clients-icon{
-    background-color: #834690;
+  .sidebar-menu-icons {
+    color: white;
+    display: block;
+    text-align: center;
+    line-height: 24pt;
+    vertical-align: text-top;
   }
 
-  .finance-icon{
-    background-color: #68BAA6;
+  .open-sidebar-icon {
+    border: 0px;
+    width: 1.5em;
+    vertical-align: text-top;
   }
 
   .sidebar-opened {
@@ -100,3 +112,11 @@ html{
   border-color: none;}
   .is-bordered { border: 1px solid #DBDBDB}
 
+
+/* Clients detail */
+.client-info-30{
+  line-height: 30pt;
+}
+.client-info-15{
+  line-height: 20pt;
+}
