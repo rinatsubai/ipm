@@ -19,4 +19,4 @@ class Transaction(models.Model):
     amount = models.IntegerField()
     flow = models.CharField(max_length=3, choices=FLOW_CHOICES, default=INCOME)
     project = models.ForeignKey(Project, verbose_name=("Project"), on_delete=models.PROTECT, related_name='transaction')
-    transaction_date = models.DateTimeField(auto_now=False, auto_now_add=True)
+    transaction_date = models.DateTimeField(auto_now_add=True)

@@ -4,7 +4,7 @@ from ipmclients.views import clients_filter, ClientAPIView, clients_new_page, cl
 from ipmalpha import views
 from ipmalpha.views import projects_page
 from rest_framework.routers import SimpleRouter, DefaultRouter
-from dashboard.views import dashboard 
+from dashboard.views import dashboard, dashboardold, dashboardtest
 
 router = DefaultRouter()
 router.register(r'api/clients', ClientAPIView)
@@ -12,6 +12,8 @@ router.register(r'api/clients', ClientAPIView)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', dashboard, name="dashboard"),
+    path('old/', dashboardold, name="dashboardold"),
+    path('test/', dashboardtest, name="dashboardtest"),
     path('clients/', clients, name="clients"),
     path('filter/', clients_filter, name="clients_filter"),
     # path('client/<slug:client_slug>', clients_filter, name="clients_filter"),

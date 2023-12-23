@@ -18,7 +18,7 @@ class Client(models.Model):
     # newslug = AutoSlugField(populate_from=id, unique=True, default=id())
     
     def get_absolute_url(self):
-        return reverse("client_detail", kwargs={'pk': self.pk})
+        return reverse("client_view", kwargs={'pk': self.pk})
         # return reverse("client_detail", args=[str(self.id)])
     
     def client_projects_sum(self, Project):

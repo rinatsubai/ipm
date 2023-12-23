@@ -120,3 +120,8 @@ html{
 .client-info-15{
   line-height: 20pt;
 }
+
+.box-grid {
+height: 100%;
+vertical-align: center;
+}

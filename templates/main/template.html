@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="has-background-light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPM | {% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css'%}">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+</head>
+
+<body>
+  {% include 'main/sidebar.html' %}
+
+
+  <section class="section body-content pt-4 polka-dot">
+    <div class="columns pl-6">
+      {% include 'main/toolbar.html' %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+  </section>
+  {% block scripts %}
+  {% endblock %}
+</body>
+<script src="{% static 'js/template.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  flatpickr("#id_transaction_date_from", {maxDate: "today",});
+  flatpickr("#id_transaction_date_to", {maxDate: "today",});
+</script>
+</html>

@@ -30,7 +30,7 @@ class Project(models.Model):
     # slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     
     def get_absolute_url(self):
-        return reverse("project_detail", kwargs={'pk': self.pk})
+        return reverse("project_view", kwargs={'pk': self.pk})
     
     def get_project_transactions_sum(self):
         # qs = Project.objects.exclude(transaction = None)

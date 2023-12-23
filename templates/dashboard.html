@@ -1,63 +1,110 @@
-{% extends 'main/layout.html' %}
+{% extends 'main/template.html' %}
+{% load static %}
 {% load humanize %}
-
-{% block title %} Дашборд {% endblock %}
+{% block title %}Дашборд{% endblock %}
 {% block content %}
-    <div class="row">  
-        <h2 class="pt-3 pb-3 m-4">Dashboard</h2>
-      <div class="col-sm-2">
-        <div class="card p-2">
-            <div class="card-body">
-                <h1 class="display-4">{{clients.count}}</h1>
-                <h5 class="card-title text-secondary">Clients</h5>
-                {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> {% endcomment %}
-                <br/><a href="/clients" class="btn btn-primary">Clients</a>
-            </div>
+{% comment %} <button class="button is-pulled-right modalProjectsFormButton" data-target="modalProjectsForm">Создать
+    проект</button> {% endcomment %}
+    
+<div class="columns pl-6">
+    <div class="column .is-flex is-2 py-6 px-4">
+        <div class="box has-background-white has-text-centered">
+            <form method="GET">
+                {{transaction_filter_form.transaction_date_from}}
+                {{transaction_filter_form.transaction_date_to}}
+                <input type="submit" class="button is-primary is-inverted" value="Фильтровать"/>
+            </form>
         </div>
     </div>
-        <div class="col-sm-2">
-            <div class="card p-2">
-                <div class="card-body">
-                    <h1 class="display-4">{{projects.count}}</h1>
-                    <h5 class="card-title text-secondary">Projects</h5>
-                    {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> {% endcomment %}
-                    <br/><a href="/projects" class="btn btn-primary">Projects</a>
-                </div>
-            </div>
+    <div class="column .is-flex is-2 py-6 px-4">
+        <div class="box box-grid has-background-white has-text-centered">
+            <h1 class="is-size-1">{{clients.count}}</h1>
+            <p class="has-text-grey-light">Количество клиентов</p>
         </div>
-        <div class="col-4">
-            <div class="card p-2">
-                <div class="card-body">
-                    <h1 class="display-4">{{sum.total|intcomma}} ₽</h1>
-                    <h5 class="card-title text-secondary">Total Projects Sum</h5>
-                    <br/><a href="/projects" class="btn btn-primary">Transactions</a>
-                    {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> {% endcomment %}
-                </div>
-            </div>
+    </div>
+    <div class="column .is-flex is-2 py-6 px-4">
+        <div class="box box-grid has-background-white has-text-centered">
+            <h1 class="is-size-1">{{projects.count}}</h1>
+            <p class="has-text-grey-light">Количество проектов</p>
         </div>
-        <div class="col-4">
-            <div class="card p-2">
-                <div class="card-body">
-                    <h1 class="display-4">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
-                    <h5 class="card-title text-secondary">Total Clients Sum</h5>
-                    <br/><a href="/projects" class="btn btn-primary">Transactions</a>
-                    {% comment %} <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> {% endcomment %}
-                </div>
-            </div>
+    </div>
+    
+    <div class="column .is-flex is-4 py-6 px-4">
+        <div class="box box-grid has-background-white has-text-centered">
+            <h1 class="is-size-1">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
+            <p class="has-text-grey-light">Сумма всех поступлений и расходов</p>
+            <br />
         </div>
-    </div>  
-    {% comment %} <div class="row">
-        <div class="col-sm-3">
-            <div class="card p-2">
-                <div class="card-body">
-                    <h3 class="card-title">Actions</h3>
-                    <p class="card-text">Here are the most popular actions you can use quickly:</p> <br/>
-                    <a href="/clients" class="btn btn-primary container-fluid">Add client</a>
-                    <p class="text-secondary">Click here to create a new client</p> <br/>
-                    <a href="/clients" class="btn btn-primary container-fluid">Add project</a>
-                    <p class="text-secondary">Click here to create a new project</p>
-                </div>
-            </div>
+    </div>
+</div>
+<div class="columns pl-6">
+    <div class="column is-4 py-1 px-4">
+        <div class="box box-grid has-background-white has-text-centered">
+            <h1 class="is-size-1">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
+            <p class="has-text-grey-light">Расходы</p>
+            <br />
         </div>
-    </div>        {% endcomment %}
+    </div>
+    <div class="column is-4 py-1 px-4">
+        <div class="box box-grid has-background-white has-text-centered">
+            <h1 class="is-size-1">{{sum.total|intcomma}} ₽</h1>
+            <p class="has-text-grey-light">Стоимость всех проектов</p>
+            <br />
+        </div>
+    </div>
+    <div class="column is-2 py-1 px-4">
+        <div class="box box-grid has-background-white has-text-centered">
+            <h1 class="is-size-1">{{transactions.count}}</h1>
+            <p class="has-text-grey-light">Количество транзакций</p>
+        </div>
+    </div>
+</div>
+<div class="columns pl-6">
+    <div class="column is-4 py-1 px-4">
+        <div class="box box-grid has-background-white has-text-centered">
+            <h1 class="is-size-1">{{balance.amount__sum|intcomma}} ₽</h1>
+            <p class="has-text-grey-light">Баланс</p>
+            <br />
+        </div>
+    </div>
+    <div class="column is-4 py-1 px-4">
+        <div class="box box-grid has-background-white has-text-centered">
+            <h1 class="is-size-1">{{transactions_spendings.amount__sum|intcomma}} ₽</h1>
+            <p class="has-text-grey-light">Расходы</p>
+            <br />
+        </div>
+    </div>
+    <div class="column is-2 py-1 px-4">
+        <div class="box box-grid has-background-white has-text-centered">
+            <h1 class="is-size-1">{{transactions.count}}</h1>
+            <p class="has-text-grey-light">Количество транзакций</p>
+        </div>
+    </div>
+</div>
+
+
+{% comment %} MODAL FORM PROJECT {% endcomment %}
+<div class="modal modalProjectsForm">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title has-text-centered">Создать проект</p>
+            <button class="delete modalProjectsFormCloser" aria-label="close"></button>
+        </header>
+        {% include 'main/project_create.html' %}
+    </div>
+</div>
+<div class="column is-1">
+    <div class="">
+        <div class="notification notification-on-top is-primary is-hidden has-text-grey-light pt-6 pl-0 ml-0">
+            <p class="is-hidden successmessage"> {{successmessagetext}} </p>
+            <p class=""> {{ projectform.errors }} </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+    <script> $( function() {
+        $( "#id_transaction_date_from" ).datepicker();
+      } ); </script>
 {% endblock %}

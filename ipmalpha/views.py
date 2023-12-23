@@ -80,9 +80,18 @@ class ProjectListView(ListView):
 
 class ProjectDetailView(DetailView):
     model = Project
-    template_name = "project_detail.html"
+    template_name = "project_view.html"
     def get_context_data(self, **kwargs):
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
+        context['projecsall'] = Project.objects.all()
+
+        return context
+    
+class ProjectDetailView2(DetailView):
+    model = Project
+    template_name = "project_detail.html"
+    def get_context_data(self, **kwargs):
+        context = super(ProjectDetailView2, self).get_context_data(**kwargs)
         context['projecsall'] = Project.objects.all()
 
         return context
