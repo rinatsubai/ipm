@@ -3,85 +3,83 @@
 {% load humanize %}
 {% block title %}Дашборд{% endblock %}
 {% block content %}
-{% comment %} <button class="button is-pulled-right modalProjectsFormButton" data-target="modalProjectsForm">Создать
-    проект</button> {% endcomment %}
-    
-<div class="columns pl-6">
-    <div class="column .is-flex is-2 py-6 px-4">
-        <div class="box has-background-white has-text-centered">
-            <form method="GET">
-                {{transaction_filter_form.transaction_date_from}}
-                {{transaction_filter_form.transaction_date_to}}
-                <input type="submit" class="button is-primary is-inverted" value="Фильтровать"/>
-            </form>
+<div class="dashboard pl-6 ml-5">    
+    <div class="columns pl-6">
+        <div class="column .is-flex is-2 py-6 pr-4 pl-4">
+            <div class="box has-background-white has-text-centered">
+                <form method="GET">
+                    {{transaction_filter_form.transaction_date_from}}
+                    {{transaction_filter_form.transaction_date_to}}
+                    <input type="submit" class="button is-primary is-inverted" value="Фильтровать"/>
+                </form>
+            </div>
+        </div>
+        <div class="column .is-flex is-2 py-6 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{clients.count}}</h1>
+                <p class="has-text-grey-light">Количество клиентов</p>
+            </div>
+        </div>
+        <div class="column .is-flex is-2 py-6 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{projects.count}}</h1>
+                <p class="has-text-grey-light">Количество проектов</p>
+            </div>
+        </div>
+        
+        <div class="column .is-flex is-4 py-6 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
+                <p class="has-text-grey-light">Сумма всех поступлений и расходов</p>
+                <br />
+            </div>
         </div>
     </div>
-    <div class="column .is-flex is-2 py-6 px-4">
-        <div class="box box-grid has-background-white has-text-centered">
-            <h1 class="is-size-1">{{clients.count}}</h1>
-            <p class="has-text-grey-light">Количество клиентов</p>
+    <div class="columns pl-6">
+        <div class="column is-4 py-1 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
+                <p class="has-text-grey-light">Расходы</p>
+                <br />
+            </div>
+        </div>
+        <div class="column is-4 py-1 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{sum.total|intcomma}} ₽</h1>
+                <p class="has-text-grey-light">Стоимость всех проектов</p>
+                <br />
+            </div>
+        </div>
+        <div class="column is-2 py-1 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{transactions.count}}</h1>
+                <p class="has-text-grey-light">Количество транзакций</p>
+            </div>
         </div>
     </div>
-    <div class="column .is-flex is-2 py-6 px-4">
-        <div class="box box-grid has-background-white has-text-centered">
-            <h1 class="is-size-1">{{projects.count}}</h1>
-            <p class="has-text-grey-light">Количество проектов</p>
+    <div class="columns pl-6">
+        <div class="column is-4 py-1 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{balance.amount__sum|intcomma}} ₽</h1>
+                <p class="has-text-grey-light">Баланс</p>
+                <br />
+            </div>
         </div>
-    </div>
-    
-    <div class="column .is-flex is-4 py-6 px-4">
-        <div class="box box-grid has-background-white has-text-centered">
-            <h1 class="is-size-1">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
-            <p class="has-text-grey-light">Сумма всех поступлений и расходов</p>
-            <br />
+        <div class="column is-4 py-1 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{transactions_spendings.amount__sum|intcomma}} ₽</h1>
+                <p class="has-text-grey-light">Расходы</p>
+                <br />
+            </div>
+        </div>
+        <div class="column is-2 py-1 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{transactions.count}}</h1>
+                <p class="has-text-grey-light">Количество транзакций</p>
+            </div>
         </div>
     </div>
 </div>
-<div class="columns pl-6">
-    <div class="column is-4 py-1 px-4">
-        <div class="box box-grid has-background-white has-text-centered">
-            <h1 class="is-size-1">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
-            <p class="has-text-grey-light">Расходы</p>
-            <br />
-        </div>
-    </div>
-    <div class="column is-4 py-1 px-4">
-        <div class="box box-grid has-background-white has-text-centered">
-            <h1 class="is-size-1">{{sum.total|intcomma}} ₽</h1>
-            <p class="has-text-grey-light">Стоимость всех проектов</p>
-            <br />
-        </div>
-    </div>
-    <div class="column is-2 py-1 px-4">
-        <div class="box box-grid has-background-white has-text-centered">
-            <h1 class="is-size-1">{{transactions.count}}</h1>
-            <p class="has-text-grey-light">Количество транзакций</p>
-        </div>
-    </div>
-</div>
-<div class="columns pl-6">
-    <div class="column is-4 py-1 px-4">
-        <div class="box box-grid has-background-white has-text-centered">
-            <h1 class="is-size-1">{{balance.amount__sum|intcomma}} ₽</h1>
-            <p class="has-text-grey-light">Баланс</p>
-            <br />
-        </div>
-    </div>
-    <div class="column is-4 py-1 px-4">
-        <div class="box box-grid has-background-white has-text-centered">
-            <h1 class="is-size-1">{{transactions_spendings.amount__sum|intcomma}} ₽</h1>
-            <p class="has-text-grey-light">Расходы</p>
-            <br />
-        </div>
-    </div>
-    <div class="column is-2 py-1 px-4">
-        <div class="box box-grid has-background-white has-text-centered">
-            <h1 class="is-size-1">{{transactions.count}}</h1>
-            <p class="has-text-grey-light">Количество транзакций</p>
-        </div>
-    </div>
-</div>
-
 
 {% comment %} MODAL FORM PROJECT {% endcomment %}
 <div class="modal modalProjectsForm">
@@ -104,7 +102,4 @@
 </div>
 {% endblock %}
 {% block scripts %}
-    <script> $( function() {
-        $( "#id_transaction_date_from" ).datepicker();
-      } ); </script>
 {% endblock %}

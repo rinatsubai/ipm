@@ -3,98 +3,95 @@
 {% block title %}Клиенты{% endblock %}
 {% block content %}
 <div class="column is-11 py-6 px-6">
-    <div class="box has-background-white">
-        <h1 class="is-size-3 pl-3 has-text-weight-semibold pt-3 pb-5">Клиенты<button class="button is-pulled-right modalProjectsFormButton ml-4 is-relative" data-target="modalProjectsForm">Создать клиента</button></h1>
-          {% if search_result %}
-            <div class="py-4 pl-3"><p class=""><strong>Результаты поиска по </strong> «{{search_result}}»:</p> <a href="/clients/">Сбросить фильтр</a></div>
-          {% else %}
+  <div class="box has-background-white">
+    <h1 class="is-size-3 pl-3 has-text-weight-semibold pt-3 pb-5">Клиенты<button
+        class="button is-pulled-right modalProjectsFormButton ml-4 is-relative" data-target="modalProjectsForm">Создать
+        клиента</button></h1>
+    {% if search_result %}
+    <div class="py-4 pl-3">
+      <p class=""><strong>Результаты поиска по </strong> «{{search_result}}»:</p> <a href="/clients/">Сбросить
+        фильтр</a>
+    </div>
+    {% else %}
 
-          {% endif %}
-            {% comment %} <div class="is-grouped"> {% endcomment %}
-          
-          
-          {% comment %} {% if not 'lw' in request.path %}
-          <a class="button is-pulled-right" href="../finance/lw">Last week</a>
-          {% else %}
-          <a class="button is-pulled-right" href="../../finance/">Remove filter</a>
-          {% endif %} {% endcomment %}
-        {% comment %} </div> {% endcomment %}
+    {% endif %}
     </h1>
-        <table class="table is-hoverable is-fullwidth">
-        <tr>
-            <th>#
-            </th>
-            <th>Клиент
-            </th>
-            <th>Контакт
-            </th>
-            <th>Телеграм
-            </th>
-            <th>Телефон
-            </th>
-            <th>Роль и тип
-            </th>
-            <th>Проекты
-            </th>
-            <th>Документы
-            </th>
-        </tr>
-        {% for client in clients %}
-        <tr>
-            <td> {{client.id}}
-            </td>
-            <td><a href="{{client.get_absolute_url}}"> {{client.client_name}} </a>
-            </td>
-            <td>{{client.client_contact}}
-            </td>
-            <td>{{client.client_telegram}}
-            </td>
-            <td>{{client.client_phone}}
-            </td>
-            <td>{{client.client_roletype}}
-            </td>
-            <td>{% if client.project.all %}
-                    {%for project in client.project.all%}
-                    <a href="{{project.get_absolute_url}}">{{project.project_name}} </a><br/>
-                    {%endfor%}
-                {% else %}
-                    <p class="has-text-grey-lighter">– </p>
-                {% endif %}
-            </td>
-            <td><a {%if client.client_agreements %}href="{{client.client_agreements}}"{% else %} class="has-text-grey-lighter" {% endif %}>{% if client.client_agreements %} {{client.client_agreements}} {% else %} Нет документов {% endif %}</a>
-            </td>
-        </tr>
-        {% endfor %}
-        </table>
+    <table class="table is-hoverable is-fullwidth">
+      <tr>
+        <th>#
+        </th>
+        <th>Клиент
+        </th>
+        <th>Контакт
+        </th>
+        <th>Телеграм
+        </th>
+        <th>Телефон
+        </th>
+        <th>Роль и тип
+        </th>
+        <th>Проекты
+        </th>
+        <th>Документы
+        </th>
+      </tr>
+      {% for client in clients %}
+      <tr>
+        <td> {{client.id}}
+        </td>
+        <td><a href="{{client.get_absolute_url}}"> {{client.client_name}} </a>
+        </td>
+        <td>{{client.client_contact}}
+        </td>
+        <td>{{client.client_telegram}}
+        </td>
+        <td>{{client.client_phone}}
+        </td>
+        <td>{{client.client_roletype}}
+        </td>
+        <td>{% if client.project.all %}
+          {%for project in client.project.all%}
+          <a href="{{project.get_absolute_url}}">{{project.project_name}} </a><br />
+          {%endfor%}
+          {% else %}
+          <p class="has-text-grey-lighter">– </p>
+          {% endif %}
+        </td>
+        <td><a {%if client.client_agreements %}href="{{client.client_agreements}}" {% else %}
+            class="has-text-grey-lighter" {% endif %}>{% if client.client_agreements %} {{client.client_agreements}}
+            {% else %} Нет документов {% endif %}</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<div class="modal modalProjectsForm">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title has-text-centered">Добавить клиента</p>
+      <button class="delete modalProjectsFormCloser" aria-label="close"></button>
+    </header>
+    {% include 'main/client_create.html' %}
+  </div>
+</div>
+<div class="column is-1">
+  <div class="">
+    <div class="notification notification-on-top is-primary is-hidden has-text-grey-light pt-6 pl-0 ml-0">
+      {% if messages %}
+      <ul class="messages successmessage is-hidden">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+      <p class=""> {{ clientform.errors }} </p>
     </div>
   </div>
-  <div class="modal modalProjectsForm">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title has-text-centered">Добавить клиента</p>
-        <button class="delete modalProjectsFormCloser" aria-label="close"></button>
-      </header>
-      {% include 'main/client_create.html' %}
-      </div>
-  </div>
-  <div class="column is-1">
-    <div class="">
-      <div class="notification notification-on-top is-primary is-hidden has-text-grey-light pt-6 pl-0 ml-0">
-        {% comment %} <button class="delete"></button> {% endcomment %}
-        {% if messages %}
-        <ul class="messages successmessage is-hidden">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        <p class=""> {{ clientform.errors }} </p>
-      </div>
-    </div>
-  </div>
-  {% endblock %}
-  {% block scripts %}
-  <script>
-  </script>
-  {% endblock %}
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+</script>
+{% endblock %}

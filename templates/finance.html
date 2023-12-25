@@ -1,55 +1,93 @@
-{% extends 'main/index.html' %}
+{% extends 'main/template.html' %}
 {% load static %}
-{% block title %}Finance{% endblock %}
+{% load rest_framework %}
+{% block title %}Финансы{% endblock %}
 {% block content %}
-<div class="column is-11 py-6 px-6">
+<div class="pl-6 ml-5">
+  <div class="column is-11 py-6 px-6">
     <div class="box has-background-white">
-        <h1 class="is-size-3 has-text-centered has-text-weight-semibold pt-3 pb-5">{{encoded_data }}Transactions {% if 'lw' in request.path %}This Week {% endif %}
-            <div class="is-grouped">
-          
-          <button class="button is-pulled-right modalProjectsFormButton ml-4" disabled data-target="modalProjectsForm">Create</button>
-          {% if not 'lw' in request.path %}
-          <a class="button is-pulled-right" href="../finance/lw">Last week</a>
+      <h1 class="is-size-3 has-text-centered has-text-weight-semibold pt-3 pb-5">Транзакции </h1>
+        {% if 'week' in request.path %}за последнюю неделю {% endif %}
+        <div class="is-grouped">
+          <button class="button is-pulled-right modalProjectsFormButton ml-4"
+            data-target="modalProjectsForm">Создать</button>
+          {% if not 'week' in request.path %}
+            <a class="button is-pulled-right" href="../finance/week">За последнюю неделю</a>
           {% else %}
-          <a class="button is-pulled-right" href="../../finance/">Remove filter</a>
+            <a class="button is-pulled-right" href="../../finance/">Сбросить фильтр</a>
           {% endif %}
-        </div></h1>
-        <table class="table is-hoverable is-fullwidth">
-          <tr>
-            <th>#
-            </th>
-            <th>Date
-            </th>
-            <th>Amount
-            </th>
-            <th>Item
-            </th>
-            <th>Flow
-            </th>
-            <th>Project
-            </th>
+        </div>
+      <table class="table is-hoverable is-fullwidth mt-6">
+        <tr>
+          <th>#
+          </th>
+          <th>Дата
+          </th>
+          <th>Сумма
+          </th>
+          <th>Статья расхода
+          </th>
+          <th>Тип
+          </th>
+          <th>Проект
+          </th>
         </tr>
         {% for transaction in data %}
-        <tr>
-            <td> {{transaction.id}}
-            </td>
-            <td>{{transaction.transaction_date}}
-            </td>
-            <td>{{transaction.amount}}
-            </td>
-            <td>{{transaction.item}}
-            </td>
-            <td>{{transaction.flow}}
-            </td>
-            <td>{{transaction.project}}
-            </td>
+        
+      <tr>
+          <td> <a class="is-text is-text has-text-dark is-clickable" href="{{transaction.url}}">{{transaction.id}}</a>
+          </td>
+          <td>{{transaction.transaction_date}}
+          </td>
+          <td class="
+          {% if transaction.flow == 'Income' %}
+          has-text-primary
+          {% elif transaction.flow == 'Outcome' %}
+          has-text-danger
+          {% else %}
+          has-text-info
+          {% endif %}
+          "><a class="is-clickable {% if transaction.flow == 'Income' %}
+          has-text-primary
+          {% elif transaction.flow == 'Outcome' %}
+          has-text-danger
+          {% else %}
+          has-text-info
+          {% endif %}" href="{{transaction.url}}">{{transaction.amount|floatformat:"2g"}} ₽</a>
+          </td>
+          <td><a class="is-clickable has-text-dark" href="{{transaction.url}}">{{transaction.item}}</a>
+          </td>
+          <td class="
+          {% if transaction.flow == 'Income' %}
+          has-text-primary
+          {% elif transaction.flow == 'Outcome' %}
+          has-text-danger
+          {% else %}
+          has-text-info
+          {% endif %}
+          ">{{transaction.flow}}
+          </td>
+          <td><a href="{{transaction.project_url}}">{{transaction.project}}</a>
+          </td>
         </tr>
         {% endfor %}
-        </table>
+      </table>
     </div>
   </div>
-  {% endblock %}
-  {% block scripts %}
-  <script>
-  </script>
-  {% endblock %}
+</div>
+<div class="modal modalProjectsForm">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title has-text-centered">Добавить транзакцию</p>
+      <button class="delete modalProjectsFormCloser" aria-label="close"></button>
+    </header>
+    {% include 'main/transaction_create.html' %}
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}

@@ -43,17 +43,54 @@
                 {% else %}
                 has-text-danger
                 {% endif %}">
-                <td class=""> {{ transaction.id }}
-                </td>
-                <td>
-                    {{ transaction.amount|floatformat:"2g" }}₽
+                <td class=""> 
+                    <a class="
+                    {%if transaction.flow == 'INC' %}
+                    has-text-primary-dark
+                    {% else %}
+                    has-text-danger
+                    {% endif %}
+                    " href="{{transaction.get_absolute_url}}">
+                    {{ transaction.id }}
 
-                </td>
-                <td> {{ transaction.get_flow_display }}
-                </td>
-                <td> {{ transaction.transaction_date }}
-                </td>
-                <td> {{ transaction.item }}
+                </a></td>
+                <td><a class="
+                    {%if transaction.flow == 'INC' %}
+                    has-text-primary-dark
+                    {% else %}
+                    has-text-danger
+                    {% endif %}
+                    " href="{{transaction.get_absolute_url}}">
+                    {{ transaction.amount|floatformat:"2g" }}₽
+                
+                </a></td>
+                <td> <a class="
+                    {%if transaction.flow == 'INC' %}
+                    has-text-primary-dark
+                    {% else %}
+                    has-text-danger
+                    {% endif %}
+                    " href="{{transaction.get_absolute_url}}">
+                    {{ transaction.get_flow_display }}
+                </a></td>
+                <td> <a class="
+                    {%if transaction.flow == 'INC' %}
+                    has-text-primary-dark
+                    {% else %}
+                    has-text-danger
+                    {% endif %}
+                    " href="{{transaction.get_absolute_url}}">
+                    {{ transaction.transaction_date }}
+                </a></td>
+                <td> <a class="
+                    {%if transaction.flow == 'INC' %}
+                    has-text-primary-dark
+                    {% else %}
+                    has-text-danger
+                    {% endif %}
+                    " href="{{transaction.get_absolute_url}}">
+                    {{ transaction.item }}
+                </a>
                 </td>
             </tr>
             {% endfor %}

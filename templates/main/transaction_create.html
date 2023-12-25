@@ -1,0 +1,34 @@
+{% load static %}
+<section class="modal-card-body has-background-light">
+        <form action="{% url 'finance_page' %}" class="m-6 client-create-form" method="post">
+            {% csrf_token %}
+
+            <div class="control">
+                <p class="has-text-centered has-text-grey-light mb-6">Пожалуйста, заполните данные транзакции</p>
+                <div class="control">
+                    {% csrf_token %}
+                    {{ addtransactionform.item }}
+                </div>
+                <div class="control">
+                    {{ addtransactionform.amount }}
+                </div>
+                <div class="select is-fullwidth mb-5">
+                    {{ addtransactionform.flow }}
+                </div>
+                <div class="select is-fullwidth mb-5">
+                    {{ addtransactionform.project }}
+                </div>
+                <div class="control">
+                    {{ addtransactionform.transaction_date }}
+                </div>
+            </div>
+
+            <div class="">{{ addtransactionform.errors }}</div>
+            <div class="button-group has-text-centered">
+                <button type="submit" class="button button-create-project is-primary mt-5 mr-3">Сохранить</button>
+                <button class="button mt-5  modalProjectsFormCancel is-light">Cancel</button>
+            </div>
+        </form>
+
+        <p class="has-text-centered has-text-grey-light mb-3" style="font-size: 12px">* - Обязательное поле</p>
+    </section>

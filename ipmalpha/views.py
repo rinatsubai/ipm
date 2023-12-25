@@ -1,5 +1,5 @@
 import time
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from ipmclients.forms import AddClientForm
@@ -15,6 +15,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
+from django.contrib import messages
 
 # PROJECTS PAGE
 
@@ -39,7 +40,7 @@ def projects_page(request):
     client_results = Client.objects.all()
     projectform = AddProjectForm
     projectfilterform = FilterProjectForm
-    search_result = request.GET.get('project_name')
+    search_result = request.GET.get('search')
     if search_result:
         all_projects = all_projects.filter(Q(project_name__icontains=search_result)| Q(id__icontains=search_result)| Q(project_product__icontains=search_result) | Q(project_client__client_name__icontains=search_result))
     return render(request, 'projects_page.html', {'projects': all_projects, 'projectform': projectform, 'transaction': Transaction.objects.all(), 'showclient': client_results, 'successmessagetext': successmessagetext, 'projectfilterform': projectfilterform, 'search_result': search_result})

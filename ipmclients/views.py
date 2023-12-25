@@ -57,7 +57,7 @@ def clients(request):
     else:
         clientform = AddClientForm()
     clientfilterform = FilterClientForm
-    search_result = request.GET.get('client_name')
+    search_result = request.GET.get('search')
     if search_result:
         all_clients = all_clients.filter(Q(client_name__icontains=search_result)
                                          | Q(id__icontains=search_result) 

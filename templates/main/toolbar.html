@@ -4,18 +4,29 @@
           <form method="GET" action={% url 'projects_page' %} class="form">
             <div class="field mb-3">
               <div class="control has-icons-left">
-              {{projectfilterform.project_name}}
+              {{projectfilterform.search}}
               <span class="icon is-small is-left">
                 <img src="{% static 'assets/img/search-icon.png'%}" width="40%">
               </span>
               </div>
            </div>
           </form>
-  {% elif clientfilterform %}
+  {% elif dashboardfilterform %}
+          <form method="GET" action={% url 'projects_page' %} class="form">
+            <div class="field mb-3">
+              <div class="control has-icons-left">
+              {{dashboardfilterform.search}}
+              <span class="icon is-small is-left">
+                <img src="{% static 'assets/img/search-icon.png'%}" width="40%">
+              </span>
+              </div>
+           </div>
+          </form>
+          {% elif clientfilterform %}
           <form method="GET" action={% url 'clients' %} class="form">
             <div class="field mb-3">
               <div class="control has-icons-left">
-              {{clientfilterform.client_name}}
+              {{clientfilterform.search}}
               <span class="icon is-small is-left">
                 <img src="{% static 'assets/img/search-icon.png'%}" width="40%">
               </span>

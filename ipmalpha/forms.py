@@ -29,4 +29,4 @@ class AddProjectForm(forms.ModelForm):
         }
 
 class FilterProjectForm(forms.Form):    
-    project_name = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск проектов'}))
+    search = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск проектов'}))

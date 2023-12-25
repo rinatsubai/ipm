@@ -1,0 +1,47 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Транзакция {{object.id}}{% endblock %}
+{% block content %}
+<div class="column is-3">
+</div>
+<div class="column is-6 py-6 px-6">
+        <div class="box has-background-white pb-6">
+            <div class="px-6">
+            <p class="pl-3 is-size-5 pt-3
+            {% if object.flow == 'INC' %}
+            has-text-primary
+            {% elif object.flow == 'OUT' %}
+            has-text-danger
+            {% else %}
+            has-text-info
+            {% endif %}
+            " style=""> #{{object.id}} {{object.get_flow_display}}</p>
+            <h1 class="is-size-3 pl-3 has-text-weight-semibold pb-5">Транзакция по проекту «{{object.project}}»</h1>
+            <p class="has-text-grey client-info-15 mb-2" style=""></p>
+            <div class="pl-3">
+                <h1 class="is-size-4 has-text-weight-semibold pb-3
+                {% if object.flow == 'INC' %}
+            has-text-primary
+            {% elif object.flow == 'OUT' %}
+            has-text-danger
+            {% else %}
+            has-text-info
+            {% endif %}">{{object.amount|intcomma}} ₽ </h1>
+                
+                <p class="has-text-grey client-info-15 mb-2" style=""> <strong>Дата создания:</strong> <br/>{{object.transaction_date}}</p>
+                <p class="has-text-grey client-info-15 mb-2" style=""> <strong>Статья расхода:</strong> <br/>{{object.item}}</p>
+                
+                <p class="has-text-grey client-info-30 mb-2" style="">
+                    <h1 class="is-size-5 has-text-weight-semibold pt-6 pb-2">Проект:</h1> 
+                </p>
+                <a class="button is-fullwidth is-primary my-4" href="{{object.project.get_absolute_url}}">
+                    {{object.project}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="column is-3">
+</div>
+{% endblock %}

@@ -25,4 +25,4 @@ class AddClientForm(forms.ModelForm):
 
     
 class FilterClientForm(forms.Form):    
-    client_name = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск клиентов'}))
+    search = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск клиентов'}))

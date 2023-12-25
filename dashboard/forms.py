@@ -6,4 +6,6 @@ class TransactionFilterForm(forms.Form):
     transaction_date_to = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'input is-small is-bordered my-3', 'placeholder': 'Период, до'}))
     # transaction_date_from = forms.DateField(required=False, widget=forms.SelectDateWidget(empty_label=("Год", "День", "Месяц"), attrs={'class': 'input my-2', 'placeholder': 'С'}))
     # transaction_date_to = forms.DateField(required=False, widget=forms.SelectDateWidget(empty_label=("Год", "День", "Месяц"), attrs={'placeholder': 'По'}))
-    
+
+class FilterDashboardProjectForm(forms.Form):    
+    search = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск проектов, клиентов ...'}))
