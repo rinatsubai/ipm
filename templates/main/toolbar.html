@@ -11,6 +11,17 @@
               </div>
            </div>
           </form>
+  {% elif clientfilterform %}
+          <form method="GET" action={% url 'clients' %} class="form">
+            <div class="field mb-3">
+              <div class="control has-icons-left">
+              {{clientfilterform.client_name}}
+              <span class="icon is-small is-left">
+                <img src="{% static 'assets/img/search-icon.png'%}" width="40%">
+              </span>
+              </div>
+           </div>
+          </form>
     {% else %}
     <div class="field">
       <p class="control has-icons-left">

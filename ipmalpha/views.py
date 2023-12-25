@@ -1,5 +1,6 @@
 import time
 from django.shortcuts import render
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from ipmclients.forms import AddClientForm
 from ipmalpha.models import *
@@ -38,10 +39,10 @@ def projects_page(request):
     client_results = Client.objects.all()
     projectform = AddProjectForm
     projectfilterform = FilterProjectForm
-    project_name_result = request.GET.get('project_name')
-    if project_name_result:
-        all_projects = all_projects.filter(project_name__icontains=project_name_result)
-    return render(request, 'projects_page.html', {'projects': all_projects, 'projectform': projectform, 'transaction': Transaction.objects.all(), 'showclient': client_results, 'successmessagetext': successmessagetext, 'projectfilterform': projectfilterform, 'project_name_result': project_name_result})
+    search_result = request.GET.get('project_name')
+    if search_result:
+        all_projects = all_projects.filter(Q(project_name__icontains=search_result)| Q(id__icontains=search_result)| Q(project_product__icontains=search_result) | Q(project_client__client_name__icontains=search_result))
+    return render(request, 'projects_page.html', {'projects': all_projects, 'projectform': projectform, 'transaction': Transaction.objects.all(), 'showclient': client_results, 'successmessagetext': successmessagetext, 'projectfilterform': projectfilterform, 'search_result': search_result})
 
 # LIST API VIEW
 

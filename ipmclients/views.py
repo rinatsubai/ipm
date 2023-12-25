@@ -1,4 +1,5 @@
 from typing import Any
+from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, get_object_or_404
 from ipmalpha.models import *
@@ -37,6 +38,7 @@ def clients_filter(request):
 
 def clients(request):
     all_projects = Project.objects.all()
+    all_clients = Client.objects.all()
     if request.method == 'POST':
         clientform = AddClientForm(request.POST)
         
@@ -54,7 +56,17 @@ def clients(request):
                     clientform = AddClientForm()
     else:
         clientform = AddClientForm()
-    return render(request, 'clients.html', {'clients': Client.objects.all(), 'clientform': clientform, 'all_projects': all_projects,})
+    clientfilterform = FilterClientForm
+    search_result = request.GET.get('client_name')
+    if search_result:
+        all_clients = all_clients.filter(Q(client_name__icontains=search_result)
+                                         | Q(id__icontains=search_result) 
+                                         | Q(client_contact__icontains=search_result)
+                                         | Q(client_telegram__icontains=search_result)
+                                         | Q(client_phone__icontains=search_result)
+                                         | Q(client_roletype__icontains=search_result)
+                                         | Q(project__project_name__icontains=search_result))
+    return render(request, 'clients.html', {'clients': all_clients, 'clientform': clientform, 'all_projects': all_projects, 'clientfilterform': clientfilterform, 'search_result': search_result})
 
 
 class ClientAPIView(ModelViewSet):
@@ -75,4 +87,3 @@ def clients_new_page(request):
     response = requests.get('http://127.0.0.1:8000/api/clients/')
     data = response.json
     return render(request, 'clients.html', {'data': data,})
-        

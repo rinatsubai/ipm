@@ -4,10 +4,15 @@
 {% block content %}
 <div class="column is-11 py-6 px-6">
     <div class="box has-background-white">
-        <h1 class="is-size-3 pl-3 has-text-weight-semibold pt-3 pb-5">{{encoded_data }}Клиенты {% if 'lw' in request.path %}На этой неделе {% endif %}
+        <h1 class="is-size-3 pl-3 has-text-weight-semibold pt-3 pb-5">Клиенты<button class="button is-pulled-right modalProjectsFormButton ml-4 is-relative" data-target="modalProjectsForm">Создать клиента</button></h1>
+          {% if search_result %}
+            <div class="py-4 pl-3"><p class=""><strong>Результаты поиска по </strong> «{{search_result}}»:</p> <a href="/clients/">Сбросить фильтр</a></div>
+          {% else %}
+
+          {% endif %}
             {% comment %} <div class="is-grouped"> {% endcomment %}
           
-          <button class="button is-pulled-right modalProjectsFormButton ml-4 is-relative" data-target="modalProjectsForm">Создать клиента</button>
+          
           {% comment %} {% if not 'lw' in request.path %}
           <a class="button is-pulled-right" href="../finance/lw">Last week</a>
           {% else %}
@@ -56,7 +61,7 @@
                     <p class="has-text-grey-lighter">– </p>
                 {% endif %}
             </td>
-            <td><a href="">{{client.client_agreements}}</a>
+            <td><a {%if client.client_agreements %}href="{{client.client_agreements}}"{% else %} class="has-text-grey-lighter" {% endif %}>{% if client.client_agreements %} {{client.client_agreements}} {% else %} Нет документов {% endif %}</a>
             </td>
         </tr>
         {% endfor %}

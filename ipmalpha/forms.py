@@ -28,6 +28,5 @@ class AddProjectForm(forms.ModelForm):
             # 'slug': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Slug'}),
         }
 
-class FilterProjectForm(forms.Form):
-    project_name = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск проектов'})
-                                   )
+class FilterProjectForm(forms.Form):    
+    project_name = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск проектов'}))

@@ -14,5 +14,3 @@ class ClientsAPIFilter(django_filters.FilterSet):
                     'client_agreements': ['icontains'],
                     'client_active': ['icontains']
                   }
-        
-
