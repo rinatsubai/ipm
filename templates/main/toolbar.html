@@ -22,11 +22,22 @@
               </div>
            </div>
           </form>
-          {% elif clientfilterform %}
+  {% elif clientfilterform %}
           <form method="GET" action={% url 'clients' %} class="form">
             <div class="field mb-3">
               <div class="control has-icons-left">
               {{clientfilterform.search}}
+              <span class="icon is-small is-left">
+                <img src="{% static 'assets/img/search-icon.png'%}" width="40%">
+              </span>
+              </div>
+           </div>
+          </form>
+  {% elif transactionfilterform %}
+          <form method="GET" action={% url 'finance' %} class="form">
+            <div class="field mb-3">
+              <div class="control has-icons-left">
+              {{transactionfilterform.search}}
               <span class="icon is-small is-left">
                 <img src="{% static 'assets/img/search-icon.png'%}" width="40%">
               </span>

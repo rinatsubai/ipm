@@ -7,7 +7,7 @@ from rest_framework.routers import SimpleRouter, DefaultRouter
 from dashboard.views import dashboard, dashboardold
 
 router = DefaultRouter()
-router.register(r'api/clients', ClientAPIView)
+# router.register(r'api/clients', ClientAPIView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -20,7 +20,7 @@ urlpatterns = [
     path('projects/', projects_page, name="projects_page"),
     # path('projects/', new_projects_page.as_view(), name="new_projects_page"),
     path('api/', views.ProjectListAPIView.as_view()),
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
     path('', include("ipmclients.urls")),
     path('', include("ipmalpha.urls")),
     path('', include("finance.urls")),

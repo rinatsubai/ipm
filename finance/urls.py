@@ -5,7 +5,8 @@ from .views import *
 
 urlpatterns = [
     # path("clients/<slug:pk>", ClientDetailView.as_view(), name="client_detail"),
-    path('finance/', finance_page, name="finance_page"),
+    path('finance/old/', finance_page_2, name="finance_page"),
+    path('finance/', finance_page, name="finance"),
     path('finance/week', finance_lw_page, name="finance_lw_page"),
     path('api/finance', views.TransactionListAPIView.as_view()),
     path('api/financelw', views.TransactionLastWeekAPIView.as_view()),

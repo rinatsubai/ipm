@@ -6,16 +6,22 @@
 <div class="pl-6 ml-5">
   <div class="column is-11 py-6 px-6">
     <div class="box has-background-white">
-      <h1 class="is-size-3 has-text-centered has-text-weight-semibold pt-3 pb-5">Транзакции </h1>
-        {% if 'week' in request.path %}за последнюю неделю {% endif %}
+      
+      {%if period == 'с 1997-12-24 по 2099-12-24' %}<h1 class="is-size-3 has-text-centered has-text-weight-semibold pt-3 pb-5">Транзакции</h1>{%else%}
+      <h1 class="is-size-3 has-text-centered has-text-weight-semibold pt-3 pb-5">Транзакции {% if period %}{{period}}{%else%}{%endif%}</h1>{% endif %}
+      {% if search_result %}
+      <div class="py-4 pl-3"><p class=""><strong>Результаты поиска по </strong> «{{search_result}}»:</p> <a href="/finance/">Сбросить фильтр</a></div>
+      {% endif %}
+
         <div class="is-grouped">
+          <form method="GET" class="is-pulled-left">
+            {{transaction_filter_form.transaction_date_from}}{{transaction_filter_form.transaction_date_to}}
+            <input type="submit" class="button is-primary is-inline is-inverted" value="Фильтровать"/>
+          </form>
           <button class="button is-pulled-right modalProjectsFormButton ml-4"
             data-target="modalProjectsForm">Создать</button>
-          {% if not 'week' in request.path %}
-            <a class="button is-pulled-right" href="../finance/week">За последнюю неделю</a>
-          {% else %}
-            <a class="button is-pulled-right" href="../../finance/">Сбросить фильтр</a>
-          {% endif %}
+          
+          <a class="button is-pulled-right" href="../finance/">Сбросить фильтр</a>
         </div>
       <table class="table is-hoverable is-fullwidth mt-6">
         <tr>
@@ -37,37 +43,37 @@
       <tr>
           <td> <a class="is-text is-text has-text-dark is-clickable" href="{{transaction.url}}">{{transaction.id}}</a>
           </td>
-          <td>{{transaction.transaction_date}}
+          <td><a class="has-text-dark" href="{{transaction.project.get_absolute_url}}">{{transaction.transaction_date|date:'d-m-Y - H:i'}}</a>
           </td>
           <td class="
-          {% if transaction.flow == 'Income' %}
+          {% if transaction.flow == 'INC' %}
           has-text-primary
-          {% elif transaction.flow == 'Outcome' %}
+          {% elif transaction.flow == 'OUT' %}
           has-text-danger
           {% else %}
           has-text-info
           {% endif %}
-          "><a class="is-clickable {% if transaction.flow == 'Income' %}
+          "><a class="is-clickable {% if transaction.flow == 'INC' %}
           has-text-primary
-          {% elif transaction.flow == 'Outcome' %}
+          {% elif transaction.flow == 'OUT' %}
           has-text-danger
           {% else %}
           has-text-info
-          {% endif %}" href="{{transaction.url}}">{{transaction.amount|floatformat:"2g"}} ₽</a>
+          {% endif %}" href="{{transaction.get_absolute_url}}">{{transaction.amount|floatformat:"2g"}} ₽</a>
           </td>
-          <td><a class="is-clickable has-text-dark" href="{{transaction.url}}">{{transaction.item}}</a>
+          <td><a class="is-clickable has-text-dark" href="{{transaction.get_absolute_url}}">{{transaction.item}}</a>
           </td>
           <td class="
-          {% if transaction.flow == 'Income' %}
+          {% if transaction.flow == 'INC' %}
           has-text-primary
-          {% elif transaction.flow == 'Outcome' %}
+          {% elif transaction.flow == 'OUT' %}
           has-text-danger
           {% else %}
           has-text-info
           {% endif %}
-          ">{{transaction.flow}}
+          ">{{transaction.get_flow_display}}
           </td>
-          <td><a href="{{transaction.project_url}}">{{transaction.project}}</a>
+          <td><a href="{{transaction.project.get_absolute_url}}">{{transaction.project}}</a>
           </td>
         </tr>
         {% endfor %}

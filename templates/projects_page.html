@@ -35,10 +35,10 @@
           </td>
           <td class="truncate-text"><a href="{{ project.get_absolute_url }}"> {{ project.project_name }}</a>
           </td>
-          <td>{{ project.project_created }}
+          <td>{{ project.project_created|date:'d-m-Y - H:i' }}
           </td>
-          <td>{% if project.project_finished %}
-            {{ project.project_finished }}
+          <td class="">{% if project.project_finished %}
+            {{ project.project_finished|date:'d-m-Y - H:i' }}
             {% else %}
             Проект в работе
             {% endif %}

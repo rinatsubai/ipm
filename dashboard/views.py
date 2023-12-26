@@ -17,7 +17,6 @@ def dashboard(request):
     sum = qs.aggregate(total=Sum("project_sum", default=0))    
     csum = qs.aggregate(Sum("transaction__amount", default=0))
     start_date=str(request.GET.get('transaction_date_from','1997-12-24'))
-    print(start_date)
     end_date=str(request.GET.get('transaction_date_to','2099-12-24'))
     if start_date and end_date:
         transactions_filtered = Transaction.objects.filter(Q(transaction_date__gte=start_date), Q(transaction_date__lte=end_date),)

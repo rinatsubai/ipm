@@ -18,4 +18,11 @@ class AddTransactionForm(forms.ModelForm):
             'transaction_date':forms.TextInput(attrs={'class': 'input is-bordered mt-3', 'placeholder': 'Дата'})
         }
 
-    
+class FilterTransactionForm(forms.Form):    
+    search = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск транзакций'}))
+
+
+class TransactionFilterForm(forms.Form):
+    transaction_date_from = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'input is-bordered is-inline mr-2', 'placeholder': 'Период, с'}))
+    transaction_date_to = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'input is-bordered is-inline', 'placeholder': 'Период, до'}))
+     
