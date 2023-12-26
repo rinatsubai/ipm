@@ -10,7 +10,7 @@
       {%if period == 'с 1997-12-24 по 2099-12-24' %}<h1 class="is-size-3 has-text-centered has-text-weight-semibold pt-3 pb-5">Транзакции</h1>{%else%}
       <h1 class="is-size-3 has-text-centered has-text-weight-semibold pt-3 pb-5">Транзакции {% if period %}{{period}}{%else%}{%endif%}</h1>{% endif %}
       {% if search_result %}
-      <div class="py-4 pl-3"><p class=""><strong>Результаты поиска по </strong> «{{search_result}}»:</p> <a href="/finance/">Сбросить фильтр</a></div>
+      <div class="py-4 pl-3"><p class=""><strong>Результаты поиска по </strong> «{{search_result}}»:</p> <a href="/finance/" class="">Сбросить фильтр</a></div>
       {% endif %}
 
         <div class="is-grouped">
@@ -21,7 +21,12 @@
           <button class="button is-pulled-right modalProjectsFormButton ml-4"
             data-target="modalProjectsForm">Создать</button>
           
-          <a class="button is-pulled-right" href="../finance/">Сбросить фильтр</a>
+          <a class="button is-pulled-right" href="../finance/"
+          {%if period == 'с 1997-12-24 по 2099-12-24' %}
+        disabled
+        {% else %}
+        {% endif %}
+          >Сбросить фильтр</a>
         </div>
       <table class="table is-hoverable is-fullwidth mt-6">
         <tr>
