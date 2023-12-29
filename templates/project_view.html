@@ -2,10 +2,11 @@
 {% load static %}
 {% block title %}Проект {{project.project_name}}{% endblock %}
 {% block content %}
-<div class="column is-4 py-6 px-6">
+<div class="column is-5 py-6 px-6">
     <div class="box has-background-white pb-6">
         <p class="has-text-grey pl-3 is-size-6 pt-3" style=""> #{{project.id}} <a
-                href="{{project.project_client.get_absolute_url}}">{{project.project_client}}</a></p>
+                href="{{project.project_client.get_absolute_url}}">{{project.project_client}}</a>
+            </p>
         <h1 class="is-size-3 pl-3 has-text-weight-semibold pb-5">Проект «{{project.project_name}}»</h1>
         <div class="pl-3">
             <h1 class="is-size-5 has-text-weight-semibold pb-3">Данные проекта</h1>
@@ -17,10 +18,14 @@
                 <strong>Завершен:</strong> {{project.project_finished}}</p>{% else %}<p
                 class="has-text-grey client-info-15 pt-4" style=""><span class="has-text-grey-light">Проект еще в
                     работе</span></p>{%endif%}
+                <div class="buttons mt-6">
+                        <a class="button is-primary" href="{% url 'project_update' project.id %}">Редактировать</a>
+                        <a class="button is-danger modalProjectsFormButton">Удалить проект</a>
+                </div>
         </div>
     </div>
 </div>
-<div class="column is-6 py-6 pr-2">
+<div class="column is-5 py-6 pr-2">
     <div class="box has-background-white pb-6">
         <h1 class="is-size-3 pl-3 has-text-weight-semibold pt-3 pb-5">Транзакции</h1>
         <table class="table is-hoverable is-fullwidth">
@@ -104,5 +109,28 @@
         {% endif %}
     </div>
 </div>
+<div class="modal modalProjectsForm">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title has-text-centered">Удалить проект</p>
+        <button class="delete modalProjectsFormCloser" aria-label="close"></button>
+      </header>
+        <section class="modal-card-body has-background-light">
+            <form action="{% url 'project_delete' project.id %}" class="m-6 project-create-form" method="post">
+            {% csrf_token %}
+            <div class="control">
+                <p class="has-text-centered mb-4 is-size-5">Вы уверены, что хотите удалить проект <span class="has-text-primary">{{project.project_name }}</span> и все связанные с ним транзакции? Восстановить данные будет невозможно.</p>
+                <div class="control">        
+                </div>
+            </div>
+            <div class="button-group has-text-centered mb-6">
+                <button type="submit" class="button button-create-project is-danger mt-5 mr-3 is-medium">Удалить проект</button><br/>
+                <button class="button mt-5  modalProjectsFormCancel is-light">Отмена</button>
+            </div>
+            </form>
+        </section>
+      </div>
+  </div>
 
 {% endblock %}

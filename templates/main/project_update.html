@@ -1,0 +1,17 @@
+<section class="modal-card-body has-background-light">
+  <form action="{% url 'projects_page' %}" class="m-6 project-create-form" method="post">
+    {% csrf_token %}
+    <div class="control">
+      <p class="has-text-centered has-text-grey-light mb-6">Пожалуйста, отредактируйте нужную информацию. <br />Не
+        забудьте нажать "Сохранить".</p>
+      {{ form.as_p }}
+    </div>
+    <div class="">{{ projectform.errors }}</div>
+    <div class="button-group has-text-centered">
+      <button type="submit" class="button button-create-project is-primary mt-5 mr-3">Сохранить</button>
+      <button class="button mt-5  modalProjectsFormCancel is-light">Отменить</button>
+    </div>
+  </form>
+  <br />
+  <p class="has-text-centered has-text-grey-light mb-6" style="font-size: 12px">* - Обязательное поле</p>
+</section>

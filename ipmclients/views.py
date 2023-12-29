@@ -68,6 +68,20 @@ def clients(request):
                                          | Q(project__project_name__icontains=search_result))
     return render(request, 'clients.html', {'clients': all_clients, 'clientform': clientform, 'all_projects': all_projects, 'clientfilterform': clientfilterform, 'search_result': search_result})
 
+def client_update(request, client_id): 
+    instance = get_object_or_404(Client, pk=client_id)
+    form = EditClientForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('client_view', pk=client_id)
+    return render(request, 'client_update_view.html', {'form': form}) 
+
+def client_delete(request, client_id): 
+    client = get_object_or_404(Client, pk=client_id)
+    context = {'client': client}    
+    if request.method == 'POST':
+        client.delete()
+        return redirect('clients')
 
 class ClientAPIView(ModelViewSet):
     queryset = Client.objects.all()

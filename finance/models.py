@@ -19,7 +19,7 @@ class Transaction(models.Model):
         return self.item
     amount = models.IntegerField()
     flow = models.CharField(max_length=3, choices=FLOW_CHOICES, default=INCOME)
-    project = models.ForeignKey(Project, verbose_name=("Project"), on_delete=models.PROTECT, related_name='transaction')
+    project = models.ForeignKey(Project, verbose_name=("Project"), on_delete=models.CASCADE, related_name='transaction')
     transaction_date = models.DateTimeField(blank=True, null=True)
     def get_absolute_url(self):
         return reverse("transaction_view", kwargs={'pk': self.pk})

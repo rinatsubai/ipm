@@ -46,9 +46,9 @@
         {% for transaction in data %}
         
       <tr>
-          <td> <a class="is-text is-text has-text-dark is-clickable" href="{{transaction.url}}">{{transaction.id}}</a>
+          <td> <a class="is-text is-text has-text-dark is-clickable" href="{{transaction.get_absolute_url}}">{{transaction.id}}</a>
           </td>
-          <td><a class="has-text-dark" href="{{transaction.project.get_absolute_url}}">{{transaction.transaction_date|date:'d-m-Y - H:i'}}</a>
+          <td><a class="" href="{{transaction.get_absolute_url}}">{{transaction.transaction_date|date:'d-m-Y - H:i'}}</a>
           </td>
           <td class="
           {% if transaction.flow == 'INC' %}

@@ -1,44 +1,32 @@
 <section class="modal-card-body has-background-light">
-    <form action="{% url 'projects_page' %}"class="m-6 project-create-form" method="post"> 
-      {% csrf_token %}
-      {% comment %} {% for f in projectform %} {% endcomment %}
-      
+  <form action="{% url 'projects_page' %}" class="m-6 project-create-form" method="post">
+    {% csrf_token %}
+    <div class="control">
+      <p class="has-text-centered has-text-grey-light mb-6">Пожалуйста, заполните данные о проекте. <br />Будьте
+        внимательны.</p>
       <div class="control">
-        {% comment %} <label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label> {% endcomment %}
-        {% comment %} {% if f.field.widget.input_type == 'select'%}
-        <div class="select mb-5">
-            {{ f }}
-        </div>
-        {% else %}
-        {{ f }}
-        {%endif%} {% endcomment %}
-        <p class="has-text-centered has-text-grey-light mb-6">Please, fill out the fields in order to create a new project. <br/>Be careful.</p>
-        <div class="control">
-          {% csrf_token %}
-            {{ projectform.project_name }}
-        </div>
-        <div class="select mb-5 is-fullwidth">
-          {{ projectform.project_status }}
-        </div>
-        <div class="select mb-5 is-fullwidth">
-          {{ projectform.project_client }}
-        </div>
-        <div class="control">
+        {% csrf_token %}
+        {{ projectform.project_name }}
+      </div>
+      <div class="select mb-5 is-fullwidth">
+        {{ projectform.project_status }}
+      </div>
+      <div class="select mb-5 is-fullwidth">
+        {{ projectform.project_client }}
+      </div>
+      <div class="control">
         {{ projectform.project_product }}
-    </div>
-        <div class="control">
+      </div>
+      <div class="control">
         {{ projectform.project_sum }}
+      </div>
     </div>
-      </div>
-
-      <div class="">{{ projectform.errors }}</div>
-      {% comment %} {% endfor %} {% endcomment %}
-      <div class="button-group has-text-centered">
-        <button type="submit" class="button button-create-project is-primary mt-5 mr-3">Create project</button>
-        <button class="button mt-5  modalProjectsFormCancel is-light">Cancel</button>
-      </div>
-    </form>
-    <br/>
-    <p class="has-text-centered has-text-grey-light mb-6" style="font-size: 12px">* - Обязательное поле</p>
-  </section>
-  
+    <div class="">{{ projectform.errors }}</div>
+    <div class="button-group has-text-centered">
+      <button type="submit" class="button button-create-project is-primary mt-5 mr-3">Создать проект</button>
+      <button class="button mt-5  modalProjectsFormCancel is-light">Отмена</button>
+    </div>
+  </form>
+  <br />
+  <p class="has-text-centered has-text-grey-light mb-6" style="font-size: 12px">* - Обязательное поле</p>
+</section>

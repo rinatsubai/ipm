@@ -30,3 +30,18 @@ class AddProjectForm(forms.ModelForm):
 
 class FilterProjectForm(forms.Form):    
     search = forms.CharField(max_length=512, required=False, widget=forms.TextInput(attrs={'class': 'input is-rounded', 'placeholder': 'Поиск проектов'}))
+
+class EditProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ["project_name", "project_status", "project_client", "project_product", "project_sum"]
+        widgets = {
+            'project_name': forms.TextInput(attrs={'class': 'input mb-5 is-bordered', 'placeholder': 'Название проекта*'}),
+            'project_status': forms.Select(attrs={'class': 'mb-5'}),
+            'project_client': forms.Select(attrs={'class': 'mb-5', 'placeholder': 'Клиент'}),
+            'project_product': forms.TextInput(attrs={'class': 'input  mb-5 is-bordered', 'placeholder': 'Продукт'}),
+            'project_sum': forms.NumberInput(attrs={'class': 'input  mb-5 is-bordered', 'placeholder': 'Стоимость'}),
+            'project_created': forms.DateTimeInput(attrs={'class': 'input mb-5 is-bordered', 'placeholder': 'Created', 'input-type': 'date'}),
+            # 'project_finished': forms.DateTimeInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Finished', 'input-type': 'date'}),
+            # 'slug': forms.TextInput(attrs={'class': 'form-control container-fluid', 'placeholder': 'Slug'}),
+        }

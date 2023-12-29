@@ -22,7 +22,6 @@ function change () {
 
 sidebarButtonOpen.addEventListener("click", change)
 
-
 // modal form projects creation
 
 const modalProjectsFormButton = document.querySelector(".modalProjectsFormButton");
@@ -57,7 +56,6 @@ document.addEventListener('keydown', (event) => {
     }
   });
 
-
 // success notification
 
 var projectsForm = document.querySelector('.project-create-form');
@@ -85,4 +83,3 @@ if(clientsForm.addEventListener){
     clientsForm.addEventListener("submit", showNotification());
     console.log('worked');
 }
-

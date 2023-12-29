@@ -1,7 +1,8 @@
 from django.db import models
 from django.db.models import Count, Sum, Avg
 from django.utils import timezone
-from ipmclients.models import *
+from ipmclients.models import Client
+from django.urls import reverse
 # from finance.models import *
 
 # Create your models here.
@@ -23,21 +24,16 @@ class Project(models.Model):
         return self.project_name
     project_created = models.DateTimeField(null=True, default=timezone.now)
     project_finished = models.DateTimeField(null=True)
-    project_status = models.ForeignKey(Status, on_delete=models.PROTECT, null=True, default="Draft")
-    project_client = models.ForeignKey(Client, on_delete=models.PROTECT, null=True, related_name='project')
+    project_status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, default="Draft")
+    project_client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, related_name='project')
     project_product = models.CharField(max_length=512)
     project_sum = models.IntegerField(default=0)
-    # slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     
     def get_absolute_url(self):
         return reverse("project_view", kwargs={'pk': self.pk})
+
     
     def get_project_transactions_sum(self):
-        # qs = Project.objects.exclude(transaction = None)
-        # qs2 = qs.transaction   
-        # for q in qs:
-        #     res = q.transaction.aggregate(Sum("amount"))
-        #     print(tuple(res.values()))
         try:
             qs = Project.objects.exclude(transaction = None)
             qs2 = qs.filter(pk = self.pk)
@@ -52,11 +48,6 @@ class Project(models.Model):
             return(res)
         
     def get_project_transactions_cost(self):
-        # qs = Project.objects.exclude(transaction = None)
-        # qs2 = qs.transaction   
-        # for q in qs:
-        #     res = q.transaction.aggregate(Sum("amount"))
-        #     print(tuple(res.values()))
         try:
             qs = Project.objects.exclude(transaction = None)
             qs2 = qs.filter(pk = self.pk)
@@ -75,39 +66,3 @@ class Project(models.Model):
         verbose_name = "project"
         verbose_name_plural = "projects"
     pass
-
-# for q in qs2:
-#         res = q.transaction.aggregate(Sum("amount"))
-#         for r in res:
-#             f = res["amount__sum"]
-#             print(f)
-            
-# for q in qs2:
-#         f = res["amount__sum"].aggregate(Sum("amount__sum"))
-#         print(f)
-            
-# for q in qs2:
-#     res = q.transaction.aggregate(Sum("amount"))
-#     for r in res:
-#         f = res["amount__sum"]
-#         print(f)
-
-
-# qs = Project.objects.exclude(transaction = None)
-# for q in qs:
-#     res = q.transaction.aggregate(Sum("amount"))
-#     for r in res:
-#         f = res["amount__sum"].aggregate(Sum("amount__sum"))
-#         print(f)
-        
-
-
-
-
-
-# qsa = qs[1]
-# qs3 = qsa.transaction.all()
-# for q in qs3:
-# f = q.amount
-# print(f)
-# qs3.aggregate(Sum('amount'))
