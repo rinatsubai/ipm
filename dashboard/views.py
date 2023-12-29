@@ -7,11 +7,11 @@ from django.contrib import humanize
 from ipmalpha.forms import AddProjectForm, FilterProjectForm
 from django.db.models import Q
 from dashboard.forms import FilterDashboardProjectForm
-
+from django.contrib.auth.decorators import login_required
 from dashboard.forms import TransactionFilterForm
 
 # Create your views here.
-
+@login_required
 def dashboard(request):
     qs = Project.objects.all()
     sum = qs.aggregate(total=Sum("project_sum", default=0))    
@@ -36,7 +36,7 @@ def dashboard(request):
         all_projects = all_projects.filter(Q(project_name__icontains=search_result)| Q(id__icontains=search_result)| Q(project_product__icontains=search_result) | Q(project_client__client_name__icontains=search_result))
     return render(request, 'dashboard.html', {'projects': Project.objects.all(), 'clients': Client.objects.all(), 'sum': sum, 'csum': csum, 'transactions': transactions_filtered, 'transaction_filter_form': transaction_filter_form, 'start_date': start_date, 'end_date': end_date, 'balance': balance, 'transactions_spendings': transactions_spendings, 'projectfilterform': projectfilterform, 'search_result': search_result})
 
-    
+@login_required    
 def dashboardold(request):
     qs = Project.objects.all()
     sum = qs.aggregate(total=Sum("project_sum", default=0))    

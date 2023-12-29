@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.db.models import Q
+from requests import request
 from ipmalpha.models import *
 from ipmalpha.forms import *
 from finance.models import *
@@ -11,9 +12,11 @@ from rest_framework.generics import ListCreateAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 # PROJECTS PAGE
-
+@login_required
 def projects_page(request):
     all_projects = Project.objects.all()    
     successmessagetext = ""
@@ -40,15 +43,7 @@ def projects_page(request):
         all_projects = all_projects.filter(Q(project_name__icontains=search_result)| Q(id__icontains=search_result)| Q(project_product__icontains=search_result) | Q(project_client__client_name__icontains=search_result))
     return render(request, 'projects_page.html', {'projects': all_projects, 'projectform': projectform, 'transaction': Transaction.objects.all(), 'showclient': client_results, 'successmessagetext': successmessagetext, 'projectfilterform': projectfilterform, 'search_result': search_result})
 
-# def project_update(request, project_id):
-#     project = Project.objects.get(pk=project_id)
-#     projectform = AddProjectForm(request.POST, instance=project)
-#     if request.method == 'POST':
-#         if projectform.is_valid():
-#             projectform.save()
-#             return redirect('project_view')
-#     return render(request, 'project_update_view.html', {'project': project, 'projectform': projectform})
-
+@login_required
 def project_update(request, project_id): 
     instance = get_object_or_404(Project, pk=project_id)
     form = EditProjectForm(request.POST or None, instance=instance)
@@ -57,6 +52,7 @@ def project_update(request, project_id):
         return redirect('project_view', pk=project_id)
     return render(request, 'project_update_view.html', {'form': form}) 
 
+@login_required
 def project_delete(request, project_id): 
     project = get_object_or_404(Project, pk=project_id)
     context = {'project': project}    
@@ -65,7 +61,7 @@ def project_delete(request, project_id):
         return redirect('projects_page')
 
 # LIST API VIEW
-
+@method_decorator(login_required, name='dispatch')
 class ProjectListAPIView(ListCreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
@@ -74,7 +70,7 @@ class ProjectListAPIView(ListCreateAPIView):
 
 
 # LIST VIEW
-
+@method_decorator(login_required, name='dispatch')
 class ProjectListView(ListView):
     queryset = Project.objects.all()
     template_name = 'projects_page.html'
@@ -99,23 +95,12 @@ class ProjectListView(ListView):
         context['form'] = self.filterset.form
         return context
 
+@method_decorator(login_required, name='dispatch')
 class ProjectDetailView(DetailView):
     model = Project
     template_name = "project_view.html"
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):        
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
         context['projecsall'] = Project.objects.all()
 
         return context
-    
-class ProjectDetailView2(DetailView):
-    model = Project
-    template_name = "project_detail.html"
-    def get_context_data(self, **kwargs):
-        context = super(ProjectDetailView2, self).get_context_data(**kwargs)
-        context['projecsall'] = Project.objects.all()
-
-        return context
-    
-def projects_page_2(request):
-    return render(request, 'projects-2.html')

@@ -13,8 +13,10 @@ import requests
 from django_filters.rest_framework import DjangoFilterBackend
 from ipmclients.filters import ClientsAPIFilter
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-
+@login_required
 def clients_filter(request):
     all_projects = Project.objects.all()
     if request.method == 'POST':
@@ -35,7 +37,7 @@ def clients_filter(request):
     return render(request, 'clients_filter.html', {'clients': Client.objects.all(), 'projects': Project.objects.all(), 'clientform': clientform, 'all_projects': all_projects,})
 
 
-
+@login_required
 def clients(request):
     all_projects = Project.objects.all()
     all_clients = Client.objects.all()
@@ -68,6 +70,7 @@ def clients(request):
                                          | Q(project__project_name__icontains=search_result))
     return render(request, 'clients.html', {'clients': all_clients, 'clientform': clientform, 'all_projects': all_projects, 'clientfilterform': clientfilterform, 'search_result': search_result})
 
+@login_required
 def client_update(request, client_id): 
     instance = get_object_or_404(Client, pk=client_id)
     form = EditClientForm(request.POST or None, instance=instance)
@@ -76,6 +79,7 @@ def client_update(request, client_id):
         return redirect('client_view', pk=client_id)
     return render(request, 'client_update_view.html', {'form': form}) 
 
+@login_required
 def client_delete(request, client_id): 
     client = get_object_or_404(Client, pk=client_id)
     context = {'client': client}    
@@ -83,11 +87,13 @@ def client_delete(request, client_id):
         client.delete()
         return redirect('clients')
 
+@method_decorator(login_required, name='dispatch')
 class ClientAPIView(ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     filter_backends = (DjangoFilterBackend, )
-    
+
+@method_decorator(login_required, name='dispatch')
 class ClientDetailView(DetailView):
     model = Client
     template_name = "client_view.html"
@@ -96,7 +102,8 @@ class ClientDetailView(DetailView):
         context['clientsall'] = Client.objects.all()
 
         return context
-    
+
+@login_required   
 def clients_new_page(request):
     response = requests.get('http://127.0.0.1:8000/api/clients/')
     data = response.json

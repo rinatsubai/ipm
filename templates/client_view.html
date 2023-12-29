@@ -19,7 +19,7 @@
                 <p class="has-text-grey client-info-30" style=""> <h1 class="is-size-5 has-text-weight-semibold pt-6 pb-2">Роль и тип:</h1> {{object.client_roletype}}</p>
                 <div class="mb-4 mr-6"><button class="button is-fullwidth is-info my-4 mb-6" {%if object.client_agreements %}href="{{object.client_agreements}}"{% else %} disabled {% endif %}>Папка с договорами</button>
                     <div class="buttons has-addons">
-                        <a class="button is-primary  is-inline is-pulled-left" href="{% url 'client_update' object.id %}">Редактировать</a><a class="button is-danger modalProjectsFormButton is-inline is-pulled-right">Удалить проект</a>
+                        <a class="button is-primary  is-inline is-pulled-left" href="{% url 'client_update' object.id %}">Редактировать</a><a class="button is-danger modalProjectsFormButton is-inline is-pulled-right">Удалить клиента</a>
                     </div>
                 </div>
          </div>
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="button-group has-text-centered mb-6">
-                <button type="submit" class="button button-create-project is-danger mt-5 mr-3 is-medium">Удалить проект</button><br/>
+                <button type="submit" class="button button-create-project is-danger mt-5 mr-3 is-medium">Удалить клиента</button><br/>
                 <button class="button mt-5  modalProjectsFormCancel is-light">Отмена</button>
             </div>
             </form>

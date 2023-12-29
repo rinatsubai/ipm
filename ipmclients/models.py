@@ -2,6 +2,7 @@ from django.db import models
 from ipmalpha.models import *
 from django.urls import reverse
 from django.utils import timezone
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class Client(models.Model):
@@ -10,7 +11,7 @@ class Client(models.Model):
         return self.client_name
     client_contact = models.CharField(max_length=512, null=True)
     client_telegram = models.CharField(max_length=64, null=True)
-    client_phone = models.CharField(max_length=11, null=True)
+    client_phone = PhoneNumberField(null=True, region="RU")
     client_roletype = models.CharField(max_length=512, null=True)
     client_agreements = models.CharField(max_length=1024, null=True)
     client_active = models.BooleanField(default=True)
