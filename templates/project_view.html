@@ -14,11 +14,12 @@
             <p class="has-text-{{ project.project_status.status_color }} client-info-15" style="">
                 <strong>Статус:</strong> {{project.project_status}}</p>
             <p class="client-info-15" style=""> <strong>Создан:</strong> {{project.project_created}}</p>
+            {%if project.project_updated %}<p class="client-info-15" style=""> <strong>Изменен:</strong> {{project.project_updated}}</p>{% endif%}
             {%if project.project_finished == True %}<p class="has-text-grey client-info-15" style="">
                 <strong>Завершен:</strong> {{project.project_finished}}</p>{% else %}<p
                 class="has-text-grey client-info-15 pt-4" style=""><span class="has-text-grey-light">Проект еще в
                     работе</span></p>{%endif%}
-                <div class="buttons mt-6">
+                <div class="buttons mt-6 has-addons">
                         <a class="button is-primary" href="{% url 'project_update' project.id %}">Редактировать</a>
                         <a class="button is-danger modalProjectsFormButton">Удалить проект</a>
                 </div>

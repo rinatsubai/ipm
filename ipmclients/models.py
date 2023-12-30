@@ -15,12 +15,19 @@ class Client(models.Model):
     client_roletype = models.CharField(max_length=512, null=True)
     client_agreements = models.CharField(max_length=1024, null=True)
     client_active = models.BooleanField(default=True)
-    # slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
-    # newslug = AutoSlugField(populate_from=id, unique=True, default=id())
+    client_created = models.DateTimeField(null=True, default=timezone.now)
+    client_updated = models.DateTimeField(null=True)
+    client_closed = models.DateTimeField(null=True)
+    
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.client_created = timezone.now()
+        self.client_updated = timezone.now()
+        return super(Client, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
         return reverse("client_view", kwargs={'pk': self.pk})
-        # return reverse("client_detail", args=[str(self.id)])
     
     def client_projects_sum(self, Project):
         qs2 = Client.objects.all()

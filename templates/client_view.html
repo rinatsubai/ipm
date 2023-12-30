@@ -16,6 +16,9 @@
                 <p class="has-text-grey client-info-15" style=""> <strong>Контактное лицо:</strong> {{object.client_contact}}</p>
                 <p class="has-text-grey client-info-15" style=""> <strong>Телеграм:</strong> {{object.client_telegram}}</p>
                 <p class="has-text-grey client-info-15" style=""> <strong>Телефон:</strong> {{object.client_phone}}</p>
+                <p class="has-text-grey client-info-15" style=""> <strong>Создан:</strong> {{object.client_created}}</p>
+                {% if object.client_updated %}<p class="has-text-grey client-info-15" style=""> <strong>Изменен:</strong> {{object.client_updated}}</p>{%endif%}
+                {% if object.client_closed %} <p class="has-text-grey client-info-15" style=""> <strong>Закрыт:</strong> {{object.client_closed}}</p>{%endif%}
                 <p class="has-text-grey client-info-30" style=""> <h1 class="is-size-5 has-text-weight-semibold pt-6 pb-2">Роль и тип:</h1> {{object.client_roletype}}</p>
                 <div class="mb-4 mr-6"><button class="button is-fullwidth is-info my-4 mb-6" {%if object.client_agreements %}href="{{object.client_agreements}}"{% else %} disabled {% endif %}>Папка с договорами</button>
                     <div class="buttons has-addons">

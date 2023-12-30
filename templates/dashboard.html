@@ -7,6 +7,7 @@
     <div class="columns pl-6">
         <div class="column .is-flex is-2 py-6 pr-4 pl-4">
             <div class="box has-background-white has-text-centered">
+                <p class="is-size-3">Фильтр:</p>
                 <form method="GET">
                     {{transaction_filter_form.transaction_date_from}}
                     {{transaction_filter_form.transaction_date_to}}
@@ -18,12 +19,40 @@
             <div class="box box-grid has-background-white has-text-centered">
                 <h1 class="is-size-1">{{clients.count}}</h1>
                 <p class="has-text-grey-light">Количество клиентов</p>
+                <table class="has-text-centered is-flex mt-4">
+                    <tr>
+                        <td class="px-2">{{clientsactive.count}}
+                        </td>
+                        <td class="px-2">{{clientsfinished.count}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 is-size-7 ">В работе
+                        </td>
+                        <td class="px-2 is-size-7 ">Заверш.
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="column .is-flex is-2 py-6 px-4">
             <div class="box box-grid has-background-white has-text-centered">
                 <h1 class="is-size-1">{{projects.count}}</h1>
                 <p class="has-text-grey-light">Количество проектов</p>
+                <table class="has-text-centered is-flex mt-4">
+                    <tr>
+                        <td class="px-2">{{projectsactive.count}}
+                        </td>
+                        <td class="px-2">{{projectsfinished.count}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 is-size-7 ">В работе
+                        </td>
+                        <td class="px-2 is-size-7 ">Заверш.
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         

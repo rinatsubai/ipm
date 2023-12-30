@@ -28,6 +28,14 @@ class Project(models.Model):
     project_client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, related_name='project')
     project_product = models.CharField(max_length=512)
     project_sum = models.IntegerField(default=0)
+    project_updated = models.DateTimeField(null=True)
+    
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.project_created = timezone.now()
+        self.project_updated = timezone.now()
+        return super(Project, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
         return reverse("project_view", kwargs={'pk': self.pk})
