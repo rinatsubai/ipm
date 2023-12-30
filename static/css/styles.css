@@ -129,3 +129,26 @@ vertical-align: center;
 .dashboard {
   padding-left: 450px;
 }
+.is-pulled-bottom {
+  position: relative;
+  bottom: -25em;
+}
+
+.sidebar-avatar{
+  width: 3em;
+  height: 3em;
+  text-align: center;
+  color: #efefef;
+  background-color: #03d1b2;
+  border-radius: 250%;
+  
+}
+
+.sidebar-avatar-name{
+  margin-top: 100em;
+}
+
+.usersection{
+  height: 50px;
+  vertical-align: middle;
+}

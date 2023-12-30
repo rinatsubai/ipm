@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from dashboard.forms import FilterDashboardProjectForm
 from finance.models import *
 from django.db.models import Q
 from finance.serializers import TransactionSerializer
@@ -103,6 +104,7 @@ def finance_page(request):
     
     transactionfilterform = FilterTransactionForm
     transaction_filter_form = TransactionFilterForm
+    projectfilterform = FilterDashboardProjectForm
     search_result = request.GET.get('search')
     
     if search_result:
@@ -142,6 +144,6 @@ class TransactionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(TransactionDetailView, self).get_context_data(**kwargs)
         context['transactionsall'] = Transaction.objects.all()
-
+        context['projectfilterform'] = FilterDashboardProjectForm
         return context
 

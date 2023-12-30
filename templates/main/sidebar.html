@@ -12,6 +12,30 @@
         <li class="sidebar-menu"><a class="" href="/admin/"><img class="open-sidebar-icon pr-2" src="{% static 'assets/img/admin.svg'%}"/>Админ</a></li>
       </ul>
     </div>
+    {% if user.is_authenticated %}<div class="block sidebar-content-open is-pulled-bottom">
+      <table>
+        <tr>
+          <td class="usersection"><div class="sidebar-avatar p-2 pt-3"><span class="sidebar-avatar-name mt-6">{{user.get_short_name}}</span></div>
+          </td>
+          <td class="usersection"><div class="ml-4">{{user.username}}</div>
+          </td>
+        </tr>
+        <tr>
+          {% if user.is_authenticated %}
+          <td colspan="2" class="has-text-grey-light pt-4 pl-2 is-size-7">Вы авторизованы</td>
+          
+          {% endif %}
+        </tr>
+      </table>
+    </div>{% else %}
+  <div class="block sidebar-content-open is-pulled-bottom">
+    <table>
+      <tr>
+        <td colspan="2" class="has-text-grey-light pl-2 pt-4">Вы не авторизованы</td>
+      </tr>
+    </table>
+  </div>
+    {%endif%}
   </div>
 {% comment %} Sidebar small {% endcomment %}
 <div class="box has-background-white sidebar-small is-pulled-left is-ghost">
@@ -24,6 +48,10 @@
       <li class="sidebar-icon"><a href="/finance/"><img class="hovered-icon" src="{% static 'assets/img/finance.svg'%}"/></a></li>
       <li class="sidebar-icon"><a href="/admin/"><img class="hovered-icon" src="{% static 'assets/img/admin.svg'%}"/></a></li>
     </ul>
-
+    
   </div>
+  {% if user.is_authenticated %}<div class="sidebar-content is-pulled-bottom">
+    <div class="sidebar-avatar p-2 pt-3"> <span class="sidebar-avatar-name mt-6">{{user.get_short_name}}</span></div>
+  </div>{% else %}{%endif%}
+  
 </div>

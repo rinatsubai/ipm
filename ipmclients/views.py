@@ -74,10 +74,11 @@ def clients(request):
 def client_update(request, client_id): 
     instance = get_object_or_404(Client, pk=client_id)
     form = EditClientForm(request.POST or None, instance=instance)
+    clientfilterform = FilterClientForm
     if form.is_valid():
         form.save()
         return redirect('client_view', pk=client_id)
-    return render(request, 'client_update_view.html', {'form': form}) 
+    return render(request, 'client_update_view.html', {'form': form, 'clientfilterform': clientfilterform}) 
 
 @login_required(login_url="/signin")
 def client_delete(request, client_id): 
@@ -100,6 +101,7 @@ class ClientDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ClientDetailView, self).get_context_data(**kwargs)
         context['clientsall'] = Client.objects.all()
+        context['clientfilterform'] = FilterClientForm
 
         return context
 
