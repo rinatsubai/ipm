@@ -16,14 +16,14 @@ from django.contrib.auth.decorators import login_required
 from ipmalpha.forms import FilterProjectForm
 from django.utils.decorators import method_decorator
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url="/signin") , name='dispatch')
 class TransactionListAPIView(ListAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     filter_backends = (DjangoFilterBackend, )
     filterset_class = TransactionFilter
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url="/signin") , name='dispatch')
 class TransactionLastWeekAPIView(ListAPIView):
     serializer_class = TransactionSerializer
     def get_queryset(self):
@@ -31,7 +31,7 @@ class TransactionLastWeekAPIView(ListAPIView):
         current_week = datetime.now()
         return Transaction.objects.filter(transaction_date__range=[start_week, current_week])
 
-@login_required    
+@login_required(login_url="/signin") 
 def finance_page_2(request):
     response = requests.get('http://127.0.0.1:8000/api/finance?ordering=-transaction_date')
     data = response.json()
@@ -61,7 +61,7 @@ def finance_page_2(request):
         data = queryset.json()
     return render(request, 'finance.html', {'data': data, 'addtransactionform': addtransactionform, 'transactionfilterform': transactionfilterform})
 
-@login_required
+@login_required(login_url="/signin")
 def finance_page(request):
     all_transactions = Transaction.objects.all()
     if request.method == 'POST':    
@@ -110,7 +110,7 @@ def finance_page(request):
         transaction_filter_form = transaction_filter_form()
     return render(request, 'finance.html', {'data': all_transactions, 'addtransactionform': addtransactionform, 'transactionfilterform': transactionfilterform, 'search_result': search_result, 'transaction_filter_form': transaction_filter_form, 'period': period, 'requested': requested})
 
-@login_required
+@login_required(login_url="/signin")
 def finance_lw_page(request):
     response = requests.get('http://127.0.0.1:8000/api/financelw?ordering=-transaction_date')
     data = response.json
@@ -135,7 +135,7 @@ def finance_lw_page(request):
     transactionfilterform = FilterProjectForm
     return render(request, 'finance.html', {'data': data, 'addtransactionform': addtransactionform, 'transactionfilterform': transactionfilterform})
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url="/signin"), name='dispatch')
 class TransactionDetailView(DetailView):
     model = Transaction
     template_name = "transaction_view.html"

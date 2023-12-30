@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 # PROJECTS PAGE
-@login_required
+@login_required(login_url="/signin")
 def projects_page(request):
     all_projects = Project.objects.all()    
     successmessagetext = ""
@@ -43,7 +43,7 @@ def projects_page(request):
         all_projects = all_projects.filter(Q(project_name__icontains=search_result)| Q(id__icontains=search_result)| Q(project_product__icontains=search_result) | Q(project_client__client_name__icontains=search_result))
     return render(request, 'projects_page.html', {'projects': all_projects, 'projectform': projectform, 'transaction': Transaction.objects.all(), 'showclient': client_results, 'successmessagetext': successmessagetext, 'projectfilterform': projectfilterform, 'search_result': search_result})
 
-@login_required
+@login_required(login_url="/signin")
 def project_update(request, project_id): 
     instance = get_object_or_404(Project, pk=project_id)
     form = EditProjectForm(request.POST or None, instance=instance)
@@ -52,7 +52,7 @@ def project_update(request, project_id):
         return redirect('project_view', pk=project_id)
     return render(request, 'project_update_view.html', {'form': form}) 
 
-@login_required
+@login_required(login_url="/signin")
 def project_delete(request, project_id): 
     project = get_object_or_404(Project, pk=project_id)
     context = {'project': project}    
@@ -61,7 +61,7 @@ def project_delete(request, project_id):
         return redirect('projects_page')
 
 # LIST API VIEW
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url="/signin"), name='dispatch')
 class ProjectListAPIView(ListCreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
@@ -70,7 +70,7 @@ class ProjectListAPIView(ListCreateAPIView):
 
 
 # LIST VIEW
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url="/signin"), name='dispatch')
 class ProjectListView(ListView):
     queryset = Project.objects.all()
     template_name = 'projects_page.html'
@@ -95,7 +95,7 @@ class ProjectListView(ListView):
         context['form'] = self.filterset.form
         return context
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url="/signin"), name='dispatch')
 class ProjectDetailView(DetailView):
     model = Project
     template_name = "project_view.html"

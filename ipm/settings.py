@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'ipmclients',
     'dashboard',
     'finance',
+    'users',
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',

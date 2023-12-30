@@ -44,6 +44,8 @@
               </div>
            </div>
           </form>
+    {% elif noform %}
+          <div></div>
     {% else %}
     <form method="GET" action={% url 'projects_page' %} class="form">
       <div class="field mb-3">
@@ -58,5 +60,9 @@
     {% endif %}
     </div>
     <div class="column is-1 pr-6">
-        <button class="button is-text">Выйти</button>
+        {% if user.is_authenticated %}
+        <a class="button is-text" href="{% url 'logout_user' %}">Выйти</a>
+        {% else %}
+        <a class="button is-text" href="{% url 'login_user' %}">Войти</a>
+        {% endif %}
     </div>

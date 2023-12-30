@@ -1,0 +1,33 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block title %}Авторизация{% endblock %}
+{% block content %}
+<div class="column is-one-third">
+</div>
+<div class="column is-one-third py-6 px-4">
+    <div class="box has-background-white">
+        <p class="is-size-3 pt-5 has-text-centered">Авторизация</p>
+        <form action="" class="m-4 project-create-form" method="POST"> 
+            {% csrf_token %}            
+            <div class="control">
+              <div class="control">
+                <label class="label  has-text-centered mb-4 mt-6" for="username">Имя пользователя</label>
+                <input type="text" name="username" class="input mb-5 is-bordered is-fullwidth"></input>
+              </div>
+              <div class="control">
+                <label class="label  has-text-centered mb-4 mt-5" for="password">Пароль</label>
+                <input type="password" class="input mb-5 is-bordered" name="password"></input>
+              </div>
+            </div>
+            <div class="">{{ form.errors }}</div>
+            <div class="button-group has-text-centered">
+              <button type="submit" class="button is-primary mt-5 mr-3">Войти</button>
+            </div>
+          </form>
+          <br/>
+      </div>
+  </div>
+  <div class="column is-one-third">
+</div>
+
+{% endblock %}
