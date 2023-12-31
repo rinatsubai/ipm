@@ -74,7 +74,7 @@ def finance_page(request):
                    
                     print(addtransactionform.cleaned_data)
                     messages.success(request, 'Добавлена транзакция')
-                    return redirect('finance_page')
+                    return redirect('finance')
                         # return HttpResponseRedirect(reverse(f'projects/{instance.pk}'))
                         # return redirect('clients')   
                 except:

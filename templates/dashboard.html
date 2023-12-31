@@ -5,9 +5,12 @@
 {% block content %}
 <div class="dashboard pl-6 ml-5">    
     <div class="columns pl-6">
-        <div class="column .is-flex is-2 py-6 pr-4 pl-4">
+            <p class="is-size-2 pl-6 pt-2 pb-4">Дашборд {% if period %}{{period}}{%else%}{%endif%} <a class="pl-6 is-size-6" href="http://127.0.0.1:8000/">Сбросить фильтр</a></p>
+    </div>
+    <div class="columns pl-6">
+        <div class="column .is-flex is-2 py-4 pr-4 pl-4">
             <div class="box has-background-white has-text-centered">
-                <p class="is-size-3">Фильтр:</p>
+                <p class="is-size-4">Период:</p>
                 <form method="GET">
                     {{transaction_filter_form.transaction_date_from}}
                     {{transaction_filter_form.transaction_date_to}}
@@ -15,7 +18,7 @@
                 </form>
             </div>
         </div>
-        <div class="column .is-flex is-2 py-6 px-4">
+        <div class="column .is-flex is-2 py-4 px-4">
             <div class="box box-grid has-background-white has-text-centered">
                 <h1 class="is-size-1">{{clients.count}}</h1>
                 <p class="has-text-grey-light">Количество клиентов</p>
@@ -35,7 +38,7 @@
                 </table>
             </div>
         </div>
-        <div class="column .is-flex is-2 py-6 px-4">
+        <div class="column .is-flex is-2 py-4 px-4">
             <div class="box box-grid has-background-white has-text-centered">
                 <h1 class="is-size-1">{{projects.count}}</h1>
                 <p class="has-text-grey-light">Количество проектов</p>
@@ -56,10 +59,11 @@
             </div>
         </div>
         
-        <div class="column .is-flex is-4 py-6 px-4">
+        <div class="column is-4 py-4 px-4">
             <div class="box box-grid has-background-white has-text-centered">
-                <h1 class="is-size-1">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
-                <p class="has-text-grey-light">Сумма всех поступлений и расходов</p>
+                <h1 class="is-size-1 pt-4">{{sales.total|intcomma}} ₽</h1>
+                <p class="has-text-grey-light">Сумма продаж </p> 
+                <p class="pt-4">По {{qsactive.count}} проектам</p>
                 <br />
             </div>
         </div>
@@ -67,15 +71,15 @@
     <div class="columns pl-6">
         <div class="column is-4 py-1 px-4">
             <div class="box box-grid has-background-white has-text-centered">
-                <h1 class="is-size-1">{{csum.transaction__amount__sum|intcomma}} ₽</h1>
-                <p class="has-text-grey-light">Расходы</p>
+                <h1 class="is-size-1">{{income.amount__sum|intcomma}} ₽</h1>
+                <p class="has-text-grey-light">Поступления</p>
                 <br />
             </div>
         </div>
         <div class="column is-4 py-1 px-4">
             <div class="box box-grid has-background-white has-text-centered">
-                <h1 class="is-size-1">{{sum.total|intcomma}} ₽</h1>
-                <p class="has-text-grey-light">Стоимость всех проектов</p>
+                <h1 class="is-size-1">{{income.amount__sum|add:spendings.amount__sum|intcomma}} ₽</h1>
+                <p class="has-text-grey-light">Маржинальность</p>
                 <br />
             </div>
         </div>
@@ -87,6 +91,13 @@
         </div>
     </div>
     <div class="columns pl-6">
+        <div class="column is-4 py-1 px-4">
+            <div class="box box-grid has-background-white has-text-centered">
+                <h1 class="is-size-1">{{spendings.amount__sum|intcomma}} ₽</h1>
+                <p class="has-text-grey-light">Расходы</p>
+                <br />
+            </div>
+        </div>
         <div class="column is-4 py-1 px-4">
             <div class="box box-grid has-background-white has-text-centered">
                 <h1 class="is-size-1">{{balance.amount__sum|intcomma}} ₽</h1>
@@ -94,17 +105,10 @@
                 <br />
             </div>
         </div>
-        <div class="column is-4 py-1 px-4">
-            <div class="box box-grid has-background-white has-text-centered">
-                <h1 class="is-size-1">{{transactions_spendings.amount__sum|intcomma}} ₽</h1>
-                <p class="has-text-grey-light">Расходы</p>
-                <br />
-            </div>
-        </div>
         <div class="column is-2 py-1 px-4">
             <div class="box box-grid has-background-white has-text-centered">
-                <h1 class="is-size-1">{{transactions.count}}</h1>
-                <p class="has-text-grey-light">Количество транзакций</p>
+                <h1 class="is-size-1">{{marginality|floatformat:0}}%</h1>
+                <p class="has-text-grey-light">ROI</p>
             </div>
         </div>
     </div>
